@@ -14,7 +14,7 @@ const APP_CONFIG = {
     startHour: 9, 
     endHour: 33,  // 深夜32:00（翌朝8:00）までカバーするため
     days: [
-        { id: 'day1', label: '1日目' } // 日程指定がないため1日想定
+        { id: 'day1', label: '5/23 (土)' } 
     ],
     mapImages: [
         // 必要に応じてマップ画像のURLを設定してください
@@ -85,7 +85,7 @@ const foodList = [
 // --- 5. タイムテーブル・出演アーティストデータ ---
 const timetableData = {
     day1: {
-        date: "2026-05-30", // 仮日程
+        date: "2026-05-23", // 仮日程
         moon: [
             e("DawnLuLu（オーディション特別賞）", "10:00", "10:30", "Pop"),
             e("真舟とわ", "11:10", "12:00", "Acoustic"),
@@ -160,26 +160,26 @@ const artistYomiDict = {
     "さとう。": "さとう",
     "もっさ（ネクライトーキー）": "もっさ",
     "荒谷翔大": "あらたにしょうた",
-    "天々高々": "てんてんたかだか",
+    "天々高々": "てんてんたかたか",
     "日食なつこ": "にっしょくなつこ",
     "ぼくらのスマイルキッズプロジェクト": "ぼくらのすまいるきっずぷろじぇくと",
-    "土屋雄太": "つちやゆうた",
-    "猪原純": "いはらじゅん",
+    "土屋雄太": "ひじやゆうた",
+    "猪原純": "いのはらじゅん",
     "大平伸正": "おおひらのぶまさ",
-    "mekakushe": "めかくし",
+    "mekakushe": "めかくしー",
     "ゆうさり（独奏）": "ゆうさり",
     "タカハシコウキ（peridots）": "たかはしこうき",
     "the paddles": "ざぱどるず",
     "ハク。": "はく",
-    "bacho": "ばちょ",
+    "bacho": "ばちょう",
     "グソクムズ": "ぐそくむず",
     "石崎ひゅーい": "いしざきひゅーい",
-    "sleepy.ab× 近藤康平(ライブペインティング) × mona(調香師)": "すりーぴーえーびー",
+    "sleepy.ab× 近藤康平(ライブペインティング) × mona(調香師)": "すりーぴー",
     "TOMOVSKY": "ともふすきー",
-    "大舌勲（井原市長）開催宣言": "おおしたさとお",
+    "大舌勲（井原市長）開催宣言": "おおしたいさお",
     "ターコイズ（オーディショングランプリ）": "たーこいず",
     "SCOOBIE DO": "すくーびーどぅー",
-    "BRADIO": "ぶらでお",
+    "BRADIO": "ぶらでぃお",
     "鶴": "つる",
     "TENDOUJI": "てんどうじ",
     "四星球": "すーしんちゅう",
@@ -188,15 +188,15 @@ const artistYomiDict = {
     "星空メッセンジャー ササキユウタ presents 天体観測会": "ほしぞらめっせんじゃー",
     "メリケンサック（LOCAL LIVEHOUSE act）": "めりけんさっく",
     "きのこ島（LOCAL LIVEHOUSE act）": "きのこじま",
-    "laetrile（LOCAL LIVEHOUSE act）": "れとりる",
+    "laetrile（LOCAL LIVEHOUSE act）": "れーとりる",
     "上川周平とじゃがいもフィルハーモニー（LOCAL LIVEHOUSE act）": "かみかわしゅうへい",
     "sakisakihungry（LOCAL LIVEHOUSE act）": "さきさきはんぐりー",
-    "o_all": "おーおーる",
+    "o_all": "おーる",
     "クリトリック・リス": "くりとりっくりす",
     "鈴木実貴子ズ": "すずきみきこず",
     "New Sprint（オーディション特別賞）": "にゅーすぷりんと",
     "おとなりアイニー（オーディション特別賞）": "おとなりあいにー",
-    "藤井裕士によるラジオ体操": "ふじいゆうじ",
+    "藤井裕士によるラジオ体操": "ふじいゆうし",
     "ビア怪談": "びあかいだん",
     "野崎新聞健太郎、ノンストップくそ＆シガー・テレシ": "のざきしんぶんけんたろう",
     "hoshioto TALK SESSION（永井純一 × 藤井裕士）": "ほしおととーくせっしょん",
@@ -205,7 +205,53 @@ const artistYomiDict = {
 
 // --- 公式HPリンク辞書 ---
 const artistLinkDict = {
-    // 必要に応じて各アーティストのURLを設定します
+    "DawnLuLu（オーディション特別賞）": "https://dawnlulu.fanpla.jp/",
+    "真舟とわ": "https://lit.link/mafunetowa",
+    "さとう。": "https://sato-darari.jp/",
+    "もっさ（ネクライトーキー）": "https://necrytalkie.jp/",
+    "荒谷翔大": "https://aratanishota.com/",
+    "天々高々": "https://lit.link/tententakataka",
+    "日食なつこ": "https://nisshoku-natsuko.com/",
+    "ぼくらのスマイルキッズプロジェクト": "https://www.skp2015.com/",
+    "土屋雄太": "https://hijilab.com/",
+    "猪原純": "https://www.inohara-jun-web.com/",
+    "大平伸正": "https://ohiranobumasa.com/",
+    "mekakushe": "https://www.mekakushe.com/",
+    "ゆうさり（独奏）": "https://linktr.ee/yuusarimusic",
+    "タカハシコウキ（peridots）": "https://peridotsonline.bitfan.id/",
+    "the paddles": "https://thepaddles.themedia.jp/",
+    "ハク。": "https://hakumaru.com/",
+    "bacho": "https://bacho.jp/",
+    "グソクムズ": "https://www.gusokumuzu.com/",
+    "石崎ひゅーい": "https://www.ishizakihuwie.com/",
+    "sleepy.ab× 近藤康平(ライブペインティング) × mona(調香師)":
+"https://sleepyab.info/", 
+    "TOMOVSKY": "http://www.tomovsky.com/",
+    "大舌勲（井原市長）開催宣言": "",
+    "ターコイズ（オーディショングランプリ）": "https://lit.link/bR3u5vaolkQjClQEZfpP8bUEiy63",
+    "SCOOBIE DO": "https://scoobie-do.com/",
+    "BRADIO": "https://bradio.jp/",
+    "鶴": "https://afrock.jp/",
+    "TENDOUJI": "https://tendoujifc.com/",
+    "四星球": "http://su-xing-cyu.com/",
+    "ドミコ": "https://www.domico-music.com/",
+    "Homecomings": "https://homecomings.jp/",
+    "星空メッセンジャー ササキユウタ presents 天体観測会": "",
+    "メリケンサック（LOCAL LIVEHOUSE act）": "",
+    "きのこ島（LOCAL LIVEHOUSE act）": "",
+    "laetrile（LOCAL LIVEHOUSE act）": "",
+    "上川周平とじゃがいもフィルハーモニー（LOCAL LIVEHOUSE act）": "",
+    "sakisakihungry（LOCAL LIVEHOUSE act）": "https://linkco.re/SUuugbAg",
+    "o_all": "",
+    "クリトリック・リス": "http://clitoricris.jp/",
+    "鈴木実貴子ズ": "https://mikikotomikikotomikiko.jimdofree.com/",
+    "New Sprint（オーディション特別賞）": "https://newsprint.ryzm.jp/",
+    "おとなりアイニー（オーディション特別賞）": "https://fanlink.tv/otonari-ainy",
+    "藤井裕士によるラジオ体操": "",
+    "ビア怪談": "",
+    "野崎新聞健太郎、ノンストップくそ＆シガー・テレシ": "",
+    "hoshioto TALK SESSION（永井純一 × 藤井裕士）": "",
+    "hoshioto TALK SESSION / ササキユウタ（星空メッセンジャー）": ""
 };
 
 // --- Spotifyリンク辞書 ---
