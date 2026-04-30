@@ -59,13 +59,13 @@ const APP_CONFIG = {
 
 // --- 2. ステージ情報定義 ---
 const stagesInfo = [
-    { id: 'moon', name: 'MOON GARDEN', color: '#F4D03F' },
+    { id: 'moon', name: 'MOON GARDEN', color: '#D4AC0D' },
     { id: 'center', name: 'センター・オブ・ジ・イバラ', color: '#E74C3C' },
-    { id: 'forest', name: 'FOREST PARK', color: '#2ECC71' },
-    { id: 'busker', name: 'BUSKER AREA', color: '#9B59B6' },
-    { id: 'sky', name: 'SKY FIELD', color: '#3498DB' },
+    { id: 'forest', name: 'FOREST PARK', color: '#27AE60' },
+    { id: 'busker', name: 'BUSKER AREA', color: '#8E44AD' },
+    { id: 'sky', name: 'SKY FIELD', color: '#2980B9' },
     { id: 'budou', name: '葡萄浪漫館 YOU SEE A-GO GO', color: '#8E44AD' },
-    { id: 'rest', name: '休憩処', color: '#95A5A6' }
+    { id: 'rest', name: '休憩処', color: '#5D6D7E' }
 ];
 
 // --- 3. データ作成用ヘルパー関数 ---
