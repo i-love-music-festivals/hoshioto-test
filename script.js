@@ -82,101 +82,51 @@ function getFavId(dayKey, stageId, artistName) {
 
 // ==========================================
 // --- 4. フードデータ一覧 ---
-const foodList = [ 
+const foodList = [
     {
-        name: "SPONSOR",
+        name: "hoshiotoオフィシャルショップ",
         menu: [
-            { name: "①いいちこ", menus: ["いい茶こ", "いいちこ下町のハイボール"], message: "「いい茶こ」「いいちこ下町のハイボール」に新たなドリンクも登場！今年も音楽といいちこでカンパイだ！", img: "https://i-love-music-festivals.github.io/arabaki2026/sponsor1-iichiko.png" },
-            { name: "②キリン一番搾り", menus: ["キリン一番搾り生ビール"], message: "一番搾りはおいしいとこだけ搾る特別なビール。音楽とビールがおいしいと、フェスはもっと楽しい。一杯のビールで最高の一日を。", img: "https://i-love-music-festivals.github.io/arabaki2026/sponsor2-kirin-ichibanshibori.png" },
-            { name: "③ローソン", menus: ["からあげクン", "マチカフェ（コーヒーＳ）", "やきとり"], message: "定番のからあげクンのほか、飲料、酒、揚げ物、菓子 、携帯充電器、その他日用品等を揃えております！", img: "https://i-love-music-festivals.github.io/arabaki2026/sponsor3-lawson.png" },
-            { name: "④Red Bull / レッドブル", menus: ["レッドブル・エナジードリンク", "レッドブル パープルエディション", "レッドブル チェリーエディション"], message: "フェスを思いっきり楽しむためのエナジー！ ブースでは4種類のレッドブルとカクテルを販売。", img: "https://i-love-music-festivals.github.io/arabaki2026/sponsor4-red-bull.png" },
-            { name: "⑤味の牛たん喜助", menus: ["牛たん焼き", "牛たん焼きジャンボ串", "つくね入テールスープ"], message: "味の牛たん喜助は、昭和五十年一月一日創業、創業５０周年を迎える、牛たん専門店です。", img: "https://i-love-music-festivals.github.io/arabaki2026/sponsor5-aji-no-gyutan-kisuke.png" },
-            { name: "⑥仙台辛み噌味よしラーメン", menus: ["仙台辛み噌味よしラーメン", "政宗ブラックまぜそば"], message: "仙台の名物ラーメン「仙台辛み噌味よしラーメン」を食べて、熱い2日間をお過ごしください！", img: "https://i-love-music-festivals.github.io/arabaki2026/sponsor6-sendai-karamiso-ajiyoshi-ramen.png" },
-            { name: "⑦利府町", menus: ["利府梨ジュース", "豚串（利府梨を使った焼肉タレ味）", "牡蠣串"], message: "利府梨100%ジュースや利府梨を使った焼肉のタレで味付けした豚串を販売します！", img: "https://i-love-music-festivals.github.io/arabaki2026/sponsor7-rifu-cho.png" },
-            { name: "⑧気仙沼市とホヤぼーやとオガトレ", menus: ["プロテイン唐揚げ「からあげたんぱっくん」ホヤぼーやコラボステッカー付", "ホヤぼーやのパインサイダー"], message: "「アラバキを踊り抜く体力を！オガトレ監修、タンパク質3倍の気仙沼唐揚げでパワーフルチャージ！", img: "https://i-love-music-festivals.github.io/arabaki2026/sponsor8-kesennuma-shi-to-hoya-boya-to-ogatore.png" },
-            { name: "⑨塩竈市", menus: ["地酒（浦霞、阿部勘、一ノ蔵）", "塩竈おでん"], message: "塩竈市の美味しい地酒や特産品を取り揃えていますので、ぜひお召し上がりください！", img: "https://i-love-music-festivals.github.io/arabaki2026/sponsor9-shiogama-shi.png" },
-            { name: "⑩亘理町", menus: ["はらこめしのかけら"], message: "亘理町は、温泉施設「わたり温泉鳥の海」など観光スポットが充実。歴史と自然が調和した魅力的な町です。", img: "https://i-love-music-festivals.github.io/arabaki2026/sponsor10-watari-cho.png" }
+            { name: "①hoshiotoオフィシャルショップ", menus: ["グッズ販売"], message: `hoshioto’26オフィシャルグッズを今年も販売します！過去のグッズも少し置いておりますので是非チェックを！<br>大人気のガチャガチャもここで出来ます！`, img: "" },
+            { name: "②星音焙煎研究所", menus: ["オリジナル珈琲"], message: `hoshiotoのオフィシャルショップの珈琲屋。<br>hoshiotoイベントでしか飲めない珈琲と今年はチョコレートも販売予定！<br>珈琲は各方面で絶賛されています。<br>豆の販売もありますのでお土産にどうぞ！`, img: "" },
+            { name: "③斎藤酒店", menus: ["アルコール", "ソフトドリンク"], message: `hoshiotoオフィシャルドリンク店！<br>ソフトドリンク多種あります！<br>入り口付近にあり、ステージにも近いので利用しやすいお店です。<br>※泥酔者には販売できませんのであしからず<br>節度持って飲みましょう！`, img: "" },
+            { name: "④ワイン・クラフトビール販売", menus: ["ワイン", "クラフトビール"], message: "岡山県井原市美星町でニュージーランド産のオーガニックワインとクラフトビールを専門的に販売しています！", img: "" },
+            { name: "⑤近藤康平＆monaワークショップ", menus: ["アロマワークショップ"], message: `アロマワークショップ 厳選されたオーガニック精油の中から好きな香りを選んで自分だけの特別な香りを製作するワークショップです。<br>さらに完成したフレグランスボトルには近藤康平がひとつひとつペイントするスペシャルバージョンです！<br>アロマワークショップは、香りのブレンディングのコツをお伝えするので初めてでももちろん大丈夫です。<br>香水と言ってもオーガニック精油で作るので、普段、香水はつけない方や強い香りが苦手な方、自分だけの香りを作りたいけどどれを選んだらいいのかよくわからない方に、おすすめです。<br>ボトルはペンダントサイズなのでお気軽に身につけて持ち運ぶこともできます。<br>特別な香りを一緒に作りましょう！`, img: "" }
         ]
     },
     {
-        name: "風の草原／BAN-ETSU",
+        name: "飲食店",
         menu: [
-            { name: "①チーム南三陸", menus: ["タコの唐揚げ", "紅ショウガ揚げ", "海鮮つみれ汁"], message: "ARABAKIと言ったらタコの唐揚げ！アツアツ、プリップリを提供します！！", img: "https://i-love-music-festivals.github.io/arabaki2026/ban-etsu1-team-minamisanriku.png" },
-            { name: "②BISTRO ENCORE", menus: ["スープスパゲッティ"], message: "仙台市民に寄り添い早11年、ビストロアンコール！野菜たっぷり熱々スープパスタでエネルギーチャージ！", img: "https://i-love-music-festivals.github.io/arabaki2026/ban-etsu2-bistro-encore.png" },
-            { name: "③PRIMAL", menus: ["キューバサンド", "フレンチフライ", "えび担々麺"], message: "オリジナルキューバサンドとプレミアムフレンチフライなど、こだわりのメニューを提供します。", img: "https://i-love-music-festivals.github.io/arabaki2026/ban-etsu3-primal.png" },
-            { name: "④博多白天", menus: ["博多ラーメン", "餃子ドッグ", "九州名物かき氷シロクマ"], message: "豚骨100％濃厚スープと博多直送のバリカタ細麺が特徴の本場博多屋台スタイルのラーメンを提供致します！", img: "https://i-love-music-festivals.github.io/arabaki2026/ban-etsu4-hakata-hakuten.png" },
-            { name: "⑤ナインゲートバーガー", menus: ["ベーコンエッグスペシャル", "だし漬けアボカドとチーズの濃厚テイスト", "ききのと海苔の和風テイスト"], message: "松阪牛入り自慢のパティ、厳選最適具材、フェスを愛し平和を愛してる、ナインゲートバーガーです。", img: "https://i-love-music-festivals.github.io/arabaki2026/ban-etsu5-nine-gate-burger.png" },
-            { name: "⑥炭火焼 鶏まぶし丼 オルガン", menus: ["炭火焼 秘伝のタレ 鶏まぶし丼", "炭火焼 秘伝のタレ 鶏まぶし茶漬け", "炭火焼 軟骨入 つくね"], message: "まぶし丼は秘伝のたれと炭火焼の香ばしさが決めて!名古屋コーチンの出汁の鶏まぶし茶漬けも絶品です!!", img: "https://i-love-music-festivals.github.io/arabaki2026/ban-etsu6-sumibiyaki-torimabushidon-organ.png" },
-            { name: "⑦台湾食堂・包子家PAOZUYA", menus: ["DX魯肉飯", "王記 牛肉麺", "焼小籠包"], message: "台湾食堂・包子家の美味しさは、一つ一つ手間を惜しまず作り上げた唯一無二のこだわりの味です！", img: "https://i-love-music-festivals.github.io/arabaki2026/ban-etsu7-taiwan-shokudo-paozuya.png" },
-            { name: "⑧風雲児　日ノ本", menus: ["名物肉かすうどん", "極上ホルモン丼", "極上ホルモン焼"], message: "「また食べたくなる」各地でその名を轟かす肉かすうどんとホルモン丼。 あなたの舌でお確かめください。", img: "https://i-love-music-festivals.github.io/arabaki2026/ban-etsu8-fuunji-hinomoto.png" },
-            { name: "⑨仙台　居酒屋　周平", menus: ["ダブル牛ステーキどん", "ダブルチキンカツカレー", "ひょうたん揚げ"], message: "仙台市内にある居酒屋です。キャンプサイトで毎年おなじみの24時間営業！深夜、早朝お待ちしております。", img: "https://i-love-music-festivals.github.io/arabaki2026/ban-etsu9-sendai-izakaya-shuhei.png" },
-            { name: "⑩イスタンブールGINZA", menus: ["ケバブデラックス", "トルコドッグ", "ビーフサラミ串"], message: "創業1988年日本初のトルコ料理レストラン。ケバブやビーフサラミ串など焼き立てでお待ちしております!", img: "https://i-love-music-festivals.github.io/arabaki2026/ban-etsu10-istanbul-ginza.png" }
+            { name: "①葡萄浪漫館 食堂", menus: ["各種定食", "ソフトクリーム"], message: `会場の葡萄浪漫館の店内にある食堂。お手頃価格の定食やうどん・そば、そしてソフトクリームもあります！<br>​名物葡萄ソフトクリームはかなりオススメです！！`, img: "" },
+            { name: "②秀よし屋", menus: ["焼き鳥"], message: `1回目から出店しているご存知「ふ〜ちゃん焼き」の秀よし屋。<br>新鮮な親鶏を使い　にんにく塩風味に味付けした噛めば噛むほど肉の濃い旨みが味わえる他にない焼き鳥　ふ～ちゃん焼。<br>この味、やみつきになるります！！<br>hoshiotoに来たらぜひ食べてみてください！<br>売り切れる可能性高いのでお早めに！`, img: "" },
+            { name: "③御食事処 星の郷", menus: ["美星バーガー"], message: `1回目から出店しているもはやhoshioto名物となっている地元井原市美星町の「美星バーガー」<br>地元食材をふんだんに使っているバーガーです！<br>​コレを食べないとhoshiotoに行った気がしないとまで言われてます！今年も是非！`, img: "" },
+            { name: "④2ndLife Dining Place", menus: ["ダイニングバー"], message: `燻製したルーにトッピングの燻製を乗せており、他には無い味わいになっています！<br>シェフの作る本気イベント飯です！`, img: "" },
+            { name: "⑤36’s crepe", menus: ["クレープ"], message: `もちもち生地にたっぷりクリーム！20種類以上の多彩なクレープをお楽しみください。<br>毎年「大人限定！ラムレーズンチョコ生クリーム」が人気です。`, img: "" },
+            { name: "⑥E.mate", menus: ["タコス"], message: "福山市ひさまつ通りでダイニングバーをしています。タコスでイベント出店していて好評をいただいております！", img: "" },
+            { name: "⑦PASION", menus: ["タコス", "そばめし"], message: `美味しい手作りタコスとそばめし！<br>1回目からの皆勤出店！<br>目の前にて”焼きたて熱々”をお作りいたします。<br>焼きたて作り立てにこだわった料理をお楽しみください！`, img: "" },
+            { name: "⑧M's store", menus: ["からあげ", "かき氷"], message: "香川県小豆島キッチンカーM’s storeです。小豆島のオリーブ香草塩は、風味良くとても美味しいからあげとなっております！", img: "" },
+            { name: "⑨台湾飯", menus: ["台湾料理"], message: "台湾調味料を使用し台湾人から教わった料理を日本人向けに食べやすく少しアレンジ。子供から大人まで楽しめる中四国初の本格台湾料理キッチンカー。", img: "" },
+            { name: "⑩Halea～ハレア～", menus: ["バーガー", "スイーツ", "ドリンク"], message: `味・見た目ともに◎の”スライダーガーバー”が流行りのアサイーボウル等をメインにお子様が喜ぶくまボトルタピオカドリンクも！<br>”映え”と”流行”を意識した商品をお届けします！`, img: "" },
+            { name: "⑪酒場食堂BEN", menus: ["まぜそば"], message: "大阪南船場に2006年オープン。大阪からはるばる毎年出店させて頂いてます酒場食堂BENです。", img: "" },
+            { name: "⑫無農薬玄米カレーコブカフェ", menus: ["無農薬玄米カレー"], message: `コブカフェでは、秋田県産の無農薬玄米を使用し、保存料や着色料を使わず、小麦粉は不使用でアレルギーの方でも安心。薬膳コーディネイターとスパイス香辛料アドバイザーの資格を持つ店主が独自にブレンドしたスパイスカレーはお子様でも安心。年間40万人が訪れる野外イベント、ロハスフェスタのグルメアワードを5回受賞し、キッチンカーグランプリでも一位を獲得した本当に美味しいカレーを是非どうぞ。`, img: "" },
+            { name: "⑬craft kitchen", menus: ["ホルモンうどん"], message: "焼きたて、揚げたてのアツアツをご提供します。ぜひご賞味ください！", img: "" },
+            { name: "⑭2ndLife Dining Place", menus: ["ダイニングバー"], message: `カレーのルーやトッピングを燻製しています。<br>ローストビーフは厚切りの国産牛を使用しています。`, img: "" },
+            { name: "⑮ソニア", menus: ["お好み焼き"], message: "本場広島から岡山hoshiotoに再び参戦の毎度お馴染みの広島のお好み焼き「ソニア」です。本場ならではのスタンダードなお好み焼きに大葉(シソの葉)のアクセントが特徴のあっさりと食べれるお好み焼きは野外フェスの小腹満たしに一役買う存在です。", img: "" },
+            { name: "⑯明洞焼肉食堂", menus: ["韓国屋台飯"], message: `大阪コリアタウンにも卸している肉屋から仕入れた肉で作る韓国焼肉のサムギョプサルとビビンバのお店です。<br>ごきげんな音楽と満天の星空のお供にビビンバを是非！`, img: "" },
+            { name: "⑰岡本商店", menus: ["イカ焼き"], message: "イカ焼き、タン串、フランクフルトなど、鉄板焼きをメインに販売させていただきます。是非たべてみてください！", img: "" },
+            { name: "⑱岡山足守 芋屋蜜三郎", menus: ["焼き芋"], message: `岡山・足守の歴史ある町並みに佇む「芋屋蜜三郎」当店は、素材の力を信じる焼き芋及び焼き芋スイーツ専門店です。「第2回全国焼き芋選手権」にて、【入賞】果たしたお芋の魅力を最大限に引き出す熟成・焼きの技術。全国が認めた至極の「幻の焼き芋」を使ったスイーツやトルティーヤをぜひご堪能ください。`, img: "" }
         ]
     },
     {
-        name: "風の草原／TSUGARU",
+        name: "雑貨店・ワークショップ",
         menu: [
-            { name: "①1ポンドステーキ専門店", menus: ["クォーターポンドステーキ", "ハーフポンドステーキ", "ワンポンドステーキ"], message: "やわらかい肉質で噛むほどに旨味あふれる一皿。美味しいものを食べて皆様に笑顔になって頂けますように！", img: "https://i-love-music-festivals.github.io/arabaki2026/tsugaru1-1-pound-steak-senmonten.png" },
-            { name: "②タイ料理アローイ・アロイ", menus: ["トムヤム炒飯", "ガパオライス(挽き肉のバジル炒め)", "トムヤムクンラーメン"], message: "当店のタイ料理は店主自らが厳選し、本場タイから取り寄せた香辛料、ハーブを使用した自慢のタイ料理です。", img: "https://i-love-music-festivals.github.io/arabaki2026/tsugaru2-Thai-Ryori-Aroi-Aroi.png" },
-            { name: "③高円寺アボカド食堂", menus: ["メキシカンタコス", "メキシカンタコライス", "アボカドチーズコロッケ"], message: "肉とアボカドのメキシコ料理屋です。本格タコス、大人気のポークステーキタコライスもあります。", img: "https://i-love-music-festivals.github.io/arabaki2026/tsugaru3-koenji-avocado-shokudo.png" },
-            { name: "④王府井", menus: ["焼き小籠包", "炒飯", "クレームブリュレクレープアイス"], message: "横浜中華街で５店舗を構える人気店。肉汁コラーゲン溢れる大粒の焼き小籠包をご賞味ください。", img: "https://i-love-music-festivals.github.io/arabaki2026/tsugaru4-wan-fu-chin.png" },
-            { name: "⑤金久右衛門", menus: ["羅臼昆布とシジミの黄金中華", "極上ハラミ焼肉丼", "イカ姿焼き"], message: "高級昆布”羅臼昆布”の旨味と濃厚シジミ醤油の旨味が相性抜群の吟醸中華そば！！", img: "https://i-love-music-festivals.github.io/arabaki2026/tsugaru5-kingu-emon.png" },
-            { name: "⑥利久", menus: ["牛たん焼（7切）", "牛たん贅沢丼", "牛たん唐揚げ"], message: "手造りにこだわり、スライスから味付けまで全て職人の手作業で行った利久の牛たんをご賞味ください！", img: "https://i-love-music-festivals.github.io/arabaki2026/tsugaru6-rikyu.png" },
-            { name: "⑦THANX!", menus: ["神戸名物　温玉そばめし牛すじ乗せ", "温玉牛すじ煮込み丼", "果肉たっぷり！プレミアムマンゴースムージー"], message: "そばめしに牛すじと温泉卵を乗せたスペシャルプレート、混ぜて食べると抜群に美味しい一品です。", img: "https://i-love-music-festivals.github.io/arabaki2026/tsugaru7-thanx.png" },
-            { name: "⑧蔵王温泉オトチャヤ", menus: ["山形名物　にくそば", "ラム串焼き", "たまこん"], message: "親鳥出汁のスッキリスープにコリコリ鶏チャーシュー！歩き回ったフェスの疲れに！染みる一杯！", img: "https://i-love-music-festivals.github.io/arabaki2026/tsugaru8-zao-onsen-otochaya.png" },
-            { name: "⑨farmer's table mano", menus: ["たけし豚丼", "たけし豚の豚汁", "川崎町アルフィオーレや県内近県の日本ワイン"], message: "地元・川崎町から出店。シェフ自ら育てる「たけし豚」メニューや地元ワイナリーのワイン等お楽しみ下さい！", img: "https://i-love-music-festivals.github.io/arabaki2026/tsugaru9-farmers-table-mano.png" },
-            { name: "⑩CHINAMI", menus: ["BEEF OVER RICE（ビーフオーバーライス）", "BEEF RICE（ビーフライス）", "牛すじ焼きそば"], message: "牛すじを中心に、多国籍なメニューを展開しています。今年もよろしくお願いします！", img: "https://i-love-music-festivals.github.io/arabaki2026/tsugaru10-chinami.png" },
-            { name: "⑪Pizza Bakka-ピッツァバッカ-", menus: ["マルゲリータ", "バカポテト", "クラムチャウダー"], message: "重さ1トンの石窯に注目！旨さの秘訣は窯にあり。食べログピザ百名店6連続受賞！", img: "https://i-love-music-festivals.github.io/arabaki2026/tsugaru11-pizza-bakka.png" }
-        ]
-    },
-    {
-        name: "エコキャンプ／HATAHATA",
-        menu: [
-            { name: "①鰰BAR／大學", menus: ["大好きなナチュラルワイン", "クラフトシロップのドリンク"], message: "仙台、大町で好き！を詰め込んだワインスナックをしております。", img: "https://i-love-music-festivals.github.io/arabaki2026/hatahata1-hatahata-bar-daigaku.png" },
-            { name: "②ロッキースタンス", menus: ["鯖のゴマ味噌ラーメン", "青森ホタテの塩ラーメン", "鯖orホタテの麻婆まぜうどん"], message: "青森県は太平洋下北半島からやってきた！漁師が店主の青森屋台！愛情たっぷり美味しさ無限∞をどうぞ！", img: "https://i-love-music-festivals.github.io/arabaki2026/hatahata2-rocky-stance.png" },
-            { name: "③N.Y Hot Dog", menus: ["40㎝の超！ Looong Hot Dog！", "American Hot Dog"], message: "当店の大名物！40㎝超えの超！Looonng Hot Dog！ぜひ大きな口で頬張ってください！！", img: "https://i-love-music-festivals.github.io/arabaki2026/hatahata3-ny-hot-dog.png" },
-            { name: "④カレーと豚丼　石巻　よしだRock食堂", menus: ["国産豚バラ炙り丼", "仙台牛牛すじクラフトカレー", "鮎塩焼き"], message: "鰰エリアで出店しております。創業より９０年以上親しまれる日本料理店が作るフェス飯をご堪能下さい。", img: "https://i-love-music-festivals.github.io/arabaki2026/hatahata4-curry-to-butadon-ishinomaki-yoshida-rock-shokudo.png" },
-            { name: "⑤Baran", menus: ["ダブルソースオムライス", "バナナチョコホイップクレープ", "ハーブソーセージ"], message: "新鮮たまごを使用したふわふわとろとろオムライスともちもち生地のクレープを提供致します。", img: "https://i-love-music-festivals.github.io/arabaki2026/hatahata5-baran.png" },
-            { name: "⑥もちもちポテト323号室", menus: ["もちもちポテト", "淡麗豚骨醤油らーめん", "担々麺"], message: "長い形状と独特の食感が特徴の揚げたてのフライドポテトです！同時出店にて淡麗豚骨醤油らーめんもご提供！", img: "https://i-love-music-festivals.github.io/arabaki2026/hatahata6-mochimochi-potato-323-goshitsu.png" }
-        ]
-    },
-    {
-        name: "エコキャンプ／FOOD TRUCK SQUARE",
-        menu: [
-            { name: "①SUNNY SITE COFFEE", menus: ["コーヒー", "ラテ", "ココア"], message: "仙台を中心に活動している移動コーヒー店で海外の雑誌にも紹介されてます。七北田公園内にカフェも展開中。", img: "https://i-love-music-festivals.github.io/arabaki2026/food-truck-square1-sunny-site-coffee.png" },
-            { name: "②DIVERTENTE", menus: ["ナポリピッツァドッグ マルゲリータ", "イタリアンフライドポテト ボロネーゼ", "湘湘ゆずビール"], message: "こだわりの生地がサックリ＆モッチリ！ピッツェリア発ドッグ型ナポリピッツァ。石窯から焼き立てをどうぞ！", img: "https://i-love-music-festivals.github.io/arabaki2026/food-truck-square2-divertente.png" },
-            { name: "③YARN", menus: ["ローズポークと蓮根のキーマカレー", "レモンビール", "カルダモン塩レモンサワー"], message: "茨城の食を届けるキッチンカーYARNです。地産の食材とスパイスカレー、自家製ドリンクを提供します。", img: "https://i-love-music-festivals.github.io/arabaki2026/food-truck-square3-yarn.png" },
-            { name: "④NOODLE STAND 栗原商店", menus: ["煮干しらーめん", "大葉のジェノバソース和えそば", "豚骨白湯らーめん"], message: "出汁の旨味で勝負。素材を活かす栗原商店の一杯。", img: "https://i-love-music-festivals.github.io/arabaki2026/food-truck-square4-noodle-stand-kurihara-shoten.png" },
-            { name: "⑤旅するパエリア", menus: ["旅するパエリア", "local＆自然派ワイン", "黒毛和牛のローストビーフ"], message: "アラバキのみなさん！！昨年に引き続き九州から極上のパエリアをお届けしますのでお楽しみに！！", img: "https://i-love-music-festivals.github.io/arabaki2026/food-truck-square5-tabisuru-paella.png" }
-        ]
-    },
-    {
-        name: "エコキャンプ／COMMUNICATION FIELD",
-        menu: [
-            { name: "①沖縄料理MARINE", menus: ["沖縄そば", "ソーキ丼", "タコライス"], message: "沖縄の伝統料理ソーキそばは、柔らかい豚あばら肉と風味豊かな出汁が絶品の一品。ぜひ本場の味をどうぞ！", img: "https://i-love-music-festivals.github.io/arabaki2026/communication-field1-okinawa-ryori-marine.png" },
-            { name: "②ビフテキダイナマイト", menus: ["ビフテキ丼おろしポン酢", "唐揚げねぎ塩レモンだれ", "ビフテキポテト"], message: "肉はアツいウチに食うべし！ダイナマイトの名物ビフテキ丼は記憶にも胃袋にも残る逸品です", img: "https://i-love-music-festivals.github.io/arabaki2026/communication-field2-bifuteki-dynamite.png" },
-            { name: "③富士山食堂", menus: ["富士宮やきそば", "富士宮やきそば目玉焼きのせ", "つぶつぶみかんスカッシュ"], message: "静岡県富士宮市のご当地グルメ富士宮やきそばを地元出身の店主が焼きたてでご提供いたします！", img: "https://i-love-music-festivals.github.io/arabaki2026/communication-field3-fujisan-shokudo.png" },
-            { name: "④麦とろ人", menus: ["牛たん塩たれ麦飯とろろ丼", "厚切り牛たん塩串", "川越かけだれ唐揚げ"], message: "群馬県産の大和芋を使用した牛たん麦とろ丼！塩麴漬けの牛たんとの相性抜群です！！", img: "https://i-love-music-festivals.github.io/arabaki2026/communication-field4-mugitorojin.png" },
-            { name: "⑤大和田らーめん", menus: ["担々麺"], message: "痺れるような辛さの濃厚なスープは食べる手が止まらず、やみつきになること間違いありません！", img: "https://i-love-music-festivals.github.io/arabaki2026/communication-field5-owada-ramen.png" },
-            { name: "⑥犇堂", menus: ["やわらか牛ハラミ丼", "からあげ", "米粉チュロス"], message: "こだわりのハラミ肉をどんぶりにしました！！特製のタレと肉汁の相性も抜群！是非ご賞味ください！！", img: "https://i-love-music-festivals.github.io/arabaki2026/communication-field6-hishimeki-do.png" },
-            { name: "⑦K's Pit", menus: ["リアルアメリカンバーガー", "沖縄カーリーポテト", "生ドーナツ"], message: "愛知県にある創業25年のアメリカンダイナーK's Pitです。メニューと店構えでお客様を魅了します。", img: "https://i-love-music-festivals.github.io/arabaki2026/communication-field7-ks-pit.png" },
-            { name: "⑧まぐろ問屋いとう水産", menus: ["特選本まぐろ竜田揚げ", "魚河岸まかない丼", "エビホタテロング串"], message: "アラバキ！今年も海鮮づくしでの出店です！魚河岸のプロ集団が吟味したネタを皆様にお届けいたします！", img: "https://i-love-music-festivals.github.io/arabaki2026/communication-field8-maguro-donya-ito-suisan.png" },
-            { name: "⑨ロティサリーチキン専門店エンシニータス", menus: ["ロティサリーチキン＆ハーブライスセット", "ロティサリーチキン欧風\"山賊\"カレー", "スパイシーロングつくねぐし"], message: "焼きたてロティサリーチキンにポテトとハーブライス。ヘルシーかつボリューム満点の看板商品です！", img: "https://i-love-music-festivals.github.io/arabaki2026/communication-field9-rotisserie-chicken-senmonten-encinitas.png" },
-            { name: "⑩ぎょうざのひぐち", menus: ["焼餃子", "タコめし", "自家製バイスサワー"], message: "福島の名物餃子！手作りの自家製バイスサワーはノンアルもOKです！アラバキでみなさん乾杯してくださいね", img: "https://i-love-music-festivals.github.io/arabaki2026/communication-field10-gyoza-no-higuchi.png" },
-            { name: "⑪NISHIKIYA KITCHEN", menus: ["豚の角煮カレー", "牛すじ煮込みのかけごはん", "特製スパイシー玉コン"], message: "おすすめは豚の角煮カレー！素材のおいしさにこだわったカレーを音楽のお供に如何でしょうか。", img: "https://i-love-music-festivals.github.io/arabaki2026/communication-field11-nishikiya-kitchen.png" },
-            { name: "⑫博多こうじ屋", menus: ["博多焼豚丼", "自家製肉巻きおにぎり", "厚切り牛タン串"], message: "博多工場より直送の自家製焼豚・肉巻きおにぎりは全国で販売されている人気の商品です", img: "https://i-love-music-festivals.github.io/arabaki2026/communication-field12-hakata-kojiya.png" },
-            { name: "⑬コンフェッティ", menus: ["山形芋煮", "ローストチキンレッグ", "山形牛タコライス"], message: "山形のソウルフード芋煮を熱々でお届けします。音楽とともに一緒に盛り上がりましょう！", img: "https://i-love-music-festivals.github.io/arabaki2026/communication-field13-confetti.png" },
-            { name: "⑭きちみ製麺", menus: ["おくずかけうーめん", "特製鶏だしうーめん", "肉味噌うーめん"], message: "その空腹、最高の一杯で満たします。400年続く白石うーめんがARABAKIを熱く支えます！", img: "https://i-love-music-festivals.github.io/arabaki2026/communication-field14-kichimi-seimen.png" },
-            { name: "⑮TRAILER BAR HAKU", menus: ["のどぐろフリット", "甘えびフリット", "福井ソースカツ丼"], message: "石川県より、北陸の美味しいをお届けいたします！ドリンクも北陸由来で揃えております。", img: "https://i-love-music-festivals.github.io/arabaki2026/communication-field15-trailer-bar-haku.png" },
-            { name: "⑯PIZZA　BRAVO", menus: ["マルゲリータ", "しらすとネギ", "ペパロニ"], message: "石窯で焼く本格ナポリピザ。500℃の高温でカリッ、フワッと焼き上げます。", img: "https://i-love-music-festivals.github.io/arabaki2026/communication-field16-pizza-bravo.png" },
-            { name: "⑰Million Dollar Ice Cream Truck", menus: ["シナモンアップルパイ", "ブルーベリーチーズケーキ", "バナナスモア"], message: "神奈川県、米海軍横須賀基地のアメリカ人が絶賛する濃厚・手作りのアメリカンアイスクリーム。", img: "https://i-love-music-festivals.github.io/arabaki2026/communication-field17-million-dollar-ice-cream-truck.png" },
-            { name: "⑱ibiscafe船岡", menus: ["米粉チュロス", "チーズハットグ", "ふりふりポテト"], message: "今年アラバキに初参戦！サクッと、モチっとした食感の米粉チュロスをぜひお楽しみください！", img: "https://i-love-music-festivals.github.io/arabaki2026/communication-field18-ibiscafe-funaoka.png" },
-            { name: "⑲月美家", menus: ["大阪西成風ホルモン焼"], message: "特製ダレとにんにくがガツンと効いた大阪西成風ホルモン焼！ビール片手に極上のフェス飯を食らい尽くせ！", img: "https://i-love-music-festivals.github.io/arabaki2026/communication-field19-tsukimiya.png" },
-            { name: "⑳京都ぽーく亭", menus: ["京都ぽーくの塩豚丼", "京だし仕立てのまぜそば", "永田茶園の３種のラテ"], message: "京都唯一のブランド豚【京都ぽーく豚】の専門店です。オーガニック茶葉のラテもご用意。どうぞおこしやす～", img: "https://i-love-music-festivals.github.io/arabaki2026/communication-field20-kyoto-pork-tei.png" },
-            { name: "㉑KIYOSHI'S KITCHEN", menus: ["アンガス牛ステーキ丼", "豚バラとトマトの欧風カレー", "牛ステーキと欧風カレーのあい盛り"], message: "ASIAN KUNG-FU GENERATION伊地知潔監修。大好評ステーキ丼に特製欧風カレーをぜひ", img: "https://i-love-music-festivals.github.io/arabaki2026/communication-field21-kiyoshis-kitchen.png" },
-            { name: "㉒鶏小屋", menus: ["濃厚鶏そば", "若鶏の香味焼きごはん", "生搾りシークワーサーソーダ"], message: "骨の髄まで炊き出した極上濃厚スープ他、全て妥協なし！フェス界究極の鶏白湯ラーメン！", img: "https://i-love-music-festivals.github.io/arabaki2026/communication-field22-torigoya.png" },
-            { name: "㉓あいづ酒まつり", menus: ["写楽VS飛露喜", "クレープ　ロックンロールスペシャル"], message: "北会津町・関さん（78）の苺「さちのか」。甘さ広がる味わいを、会津の地酒とともに。", img: "https://i-love-music-festivals.github.io/arabaki2026/communication-field23-aizu-sake-matsuri.png" },
-            { name: "㉔リトルジュースバー", menus: ["いちごけずり®", "ホットフルーツティー", "マンゴーいちごけずり"], message: "ただいまARABAKI！今年も定番のいちごけずりとホットフルーツティーをご用意！", img: "https://i-love-music-festivals.github.io/arabaki2026/communication-field24-little-juice-bar.png" }
+            { name: "①Thirtyz Kendama Crew", menus: ["けん玉のワークショップ"], message: `広島県福山市を中心として活動しているけん玉パフォーマンスチームです。<br>今や外遊びのホビーとして、また最強のコミュニケーションのツールとしても最高のKENDAMA! 歳の差、性別、国籍関係なく遊べるけん玉は最高のコミュニケーションツールのひとつになる事間違いなし！<br>この機会に初心者の技から世界レベルの技までを見て触れて楽しんでください。`, img: "" },
+            { name: "②itsumokotsumo", menus: ["雑貨屋"], message: "いつもこつもは岡山弁でいつも、いつでもを意味します。いつもこつも新しい発見を探して井原市美星町にて星空をイメージしたアクセサリーや、「田舎暮らしがちょっと楽しくなる」をコンセプトに農機具をメインにした一部の人に刺さるデザインでオリジナルTシャツや雑貨を制作しています。", img: "" },
+            { name: "③Lauleʼa", menus: ["ハンドメイドアクセサリー"], message: "Lauleʼaは、ハワイ語で「幸せ」を意味するハンドメイドアクセサリーブランド。天然石・パール・ビーズを使った上品な大人向けアクセサリーで、月のような透明感と癒しが魅力です。当日はワークショップで実際に作って楽しめ、自分用・ギフト・思い出作りにぴったりです！", img: "" },
+            { name: "④時空研究所", menus: ["ワークショップ"], message: `日々、気になったものを研究して調べたり作ったりしています。<br>hoshioto,26おもいっきり楽しみたいです。<br>どうぞよろしくお願いします。`, img: "" },
+            { name: "⑤きせつのおはなし", menus: ["雑貨屋"], message: `きせつをテーマにしたネイルチップや小物を販売しています。<br>今回はhoshiotoなので、星をテーマにした作品を販売します。`, img: "" },
+            { name: "⑥ぼくらのスマイルキッズプロジェクト", menus: ["子供のワークショップ"], message: "今回は塗手形アートうちわのワークショップをおこないます！歌のステージも3回あるので、是非そちらも見に来てくださいね。", img: "" },
+            { name: "⑦イメージ似顔絵缶バッチ！手のひら文庫社", menus: ["イメージ似顔絵缶バッチ"], message: `3分の間に即興で似顔絵を描いて缶バッチに仕上げます。<br>ペットなどのお写真からでもOK！<br>出来た似顔絵を直ぐに帽子などに付けることができます！<br>オリジナルバッチでフェス気分を盛り上げてくれます！`, img: "" },
+            { name: "⑧さくらギター", menus: ["ワークショップ"], message: `楽器は非常に繊細なものであり、気温や湿度によって状態が変わってきます。いつでも弾きたい時に弾ける状態を保つには定期的なメンテナンスが必要です。<br>さくらギターではご自分のお持ちの楽器をお持ち頂き、弾きやすくなるメンテナンスをさせて頂きます。<br>ぜひ体験してほしいです。`, img: "" }
         ]
     }
 ];
