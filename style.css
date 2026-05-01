@@ -150,7 +150,7 @@ h1 { font-size: 16px; margin: 0 0 10px 0; }
 .stage-name {
     /* 文字をきれいに見せるための基本設定 */
     font-weight: bold;
-    font-size: 13px;
+    font-size: 12.5px;
     color: #fff;
     background-color: var(--stage-color, #333); /* JSから渡された色を適用 */
     padding: 4px;
@@ -673,7 +673,7 @@ h1 { font-size: 16px; margin: 0 0 10px 0; }
 
 /* ②ビア怪談などのゲスト名（●から始まる部分）の文字を一回り小さく */
 .guest-item {
-    font-size: 0.85em; /* 元のサイズの85%に縮小します */
+    font-size: 0.80em; /* 元のサイズの85%に縮小します */
     display: block;    /* 改行を綺麗に見せるため */
 }
 
@@ -683,7 +683,7 @@ h1 { font-size: 16px; margin: 0 0 10px 0; }
     line-height: 1.3; /* 行間を少し詰めてスッキリさせます */
 }
 
-/* （③の補足）コンパクトモードの時はゲストの文字もさらに微調整 */
+/* （③の補足）コンパクトモードの時はゲストそのものを非表示にする */
 .is-compact-text .guest-item {
-    font-size: 0.9em; 
+    display: none;  /* ●で始まるゲスト行を検索結果から消します */
 }
