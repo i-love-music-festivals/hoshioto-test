@@ -102,7 +102,6 @@ h1 { font-size: 16px; margin: 0 0 10px 0; }
     /* 縦軸を揃えるため、内部のflexアイテムの幅計算を統一 */
     box-sizing: border-box;
 
-    /* ▼▼今回の修正ポイント：枠の幅を中身に合わせる▼▼ */
     /* 親枠（このラッパー）の幅を、中のステージ列の合計幅に合わせて自動で広げます。
        これを書かないと画面の幅（100%）で枠が切れてしまい、太い黒線も途切れてしまいます。 */
     width: max-content;
@@ -165,7 +164,6 @@ h1 { font-size: 16px; margin: 0 0 10px 0; }
     display: flex; 
     position: relative; /* スクロールは親のscroll-containerに任せます */
     
-    /* ▼▼今回の修正ポイント：枠の幅を中身に合わせる▼▼ */
     /* ヘッダーと同じく、タイムテーブル本体の枠も中身に合わせて広げます。
        右端の固定線（::after）は「この枠の右端」にくっつく性質があるため、
        枠自体が広がっていないと、スクロールした時に線が一緒に左へ流れて消えてしまいます。 */
@@ -174,7 +172,7 @@ h1 { font-size: 16px; margin: 0 0 10px 0; }
 }
 
 /* 右端の固定線（横スクロールしても常に右端に表示される） */
-/* 【コメント】::after は「～の後ろに仮想的な要素を作る」CSSの機能です。 */
+/* ::after は「～の後ろに仮想的な要素を作る」CSSの機能です。 */
 /* ここでは .timetable-wrapper の後ろに、右端の線を描くための要素を作っています。 */
 .timetable-wrapper::after {
     content: ''; /* 仮想要素を作るために必要 */
@@ -446,12 +444,53 @@ h1 { font-size: 16px; margin: 0 0 10px 0; }
 .search-modal-content .artist-block { position: relative; top: auto; left: auto; right: auto; height: auto; min-height: 80px; margin-bottom: 8px; padding: 12px; width: 100%; box-sizing: border-box; display: flex; flex-direction: column; border-radius: 8px; }
 .search-modal-content .artist-block:last-child { margin-bottom: 0; }
 .search-modal-content .artist-block:not(:last-child) { border-bottom: 1px solid rgba(255, 255, 255, 0.2); }
-.search-modal-content .artist-top { flex-wrap: wrap; gap: 4px; }
-.search-modal-content .artist-time { font-size: 20px; font-weight: bold; display: flex; align-items: center; flex-wrap: wrap; }
-.search-modal-content .artist-stage-name { font-size: 20px; background: rgba(0, 0, 0, 0.5); padding: 2px 8px; border-radius: 16px; margin-left: 8px; display: inline-block; }
-.search-modal-content .artist-name { font-size: 20px; font-weight: bold; margin-top: 8px; white-space: normal; line-height: 1.3; word-break: normal; color: #fff; }
 
-/* 検索結果に追加される「あと何分」のメッセージ枠 */
+/* ★ モーダル内のステージ名（新レイアウト） */
+.search-modal-content .artist-stage-name.search-stage-name {
+    display: block; /* 単独行に */
+    font-size: 16px; /* 少し小さめでも視認性は確保 */
+    background: rgba(0, 0, 0, 0.5);
+    padding: 4px 10px;
+    border-radius: 12px;
+    margin-bottom: 6px;
+    color: #fff;
+    font-weight: bold;
+}
+
+/* ★ モーダル内の日付＋時間帯（新レイアウト） */
+.search-modal-content .artist-time.search-time {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 4px;
+    color: #fff;
+}
+
+/* ★ アーティスト名と★ボタンを横並びにする行 */
+.search-modal-content .artist-name-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+/* アーティスト名部分（リンク含む） */
+.search-modal-content .artist-name-row .artist-name {
+    flex: 1;
+    font-size: 20px;
+    font-weight: bold;
+    white-space: normal;
+    line-height: 1.3;
+    color: #fff;
+}
+
+/* ★ボタン（右端に大きく） */
+.search-modal-content .artist-name-row .fav-btn {
+    font-size: 24px;
+    padding: 4px;
+    line-height: 1;
+}
+
+/* ★ 残り時間表示などのメッセージ枠 */
 .search-time-status {
     background-color: #eef2f5;
     color: #333;
@@ -464,7 +503,6 @@ h1 { font-size: 16px; margin: 0 0 10px 0; }
     border: 1px solid #dcdcdc;
 }
 
-/* 赤文字にする汎用クラス */
 .is-urgent { color: var(--color-playing); }
 
 /* ==========================================
@@ -475,7 +513,29 @@ h1 { font-size: 16px; margin: 0 0 10px 0; }
 .search-modal-content .guest-info { font-size: 14px; margin-top: 4px; line-height: 1.4; }
 
 /* マイタイムテーブルのステージ名位置（ルールにより変更禁止のため一切触っていません） */
-.mytt-stage-name { font-size: 8px; background: rgba(0, 0, 0, 0.5); padding: 2px 6px; border-radius: 8px; color: #fff; font-weight: bold; display: inline-block; margin-bottom: 2px; white-space: nowrap; align-self: flex-start; flex-shrink: 0; }
+.mytt-stage-name {
+    font-size: 8px;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 2px 6px;
+    border-radius: 8px;
+    color: #fff;
+    font-weight: bold;
+    display: inline-block;
+    margin-bottom: 2px;
+    white-space: nowrap; /* 基本的に折り返さない */
+    align-self: flex-start;
+    flex-shrink: 0;
+
+    /* 【修正】枠からはみ出すのを防ぐための「保険」設定 */
+    /* 枠の幅を絶対に超えないようにする */
+    max-width: 100%;
+    /* 内部の余白や線も含めて幅を計算する */
+    box-sizing: border-box;
+    /* もし文字が長すぎて枠に収まらない場合は、はみ出た部分を隠す */
+    overflow: hidden;
+    /* 文字が隠れるときに、末尾に「...」と三点リーダーを表示して自然に見せる */
+    text-overflow: ellipsis;
+}
 .mytt-stage-name.inline-badge { margin-right: 4px; }
 
 /* ==========================================

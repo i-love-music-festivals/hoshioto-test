@@ -829,36 +829,73 @@ function getArtistHtml(artist, stage, dayKey, isMyTT = false, currentMins = -1) 
 
 // ブロックからはみ出る文字のサイズを自動で小さくする関数です
 function adjustFontSize() {
-    // ※この処理はブラウザへの計算負荷（レイアウトスラッシング）がやや高めですが、
-    // 長いバンド名を綺麗に収めるために現状維持としています。
+    // タイムテーブル上の全てのアーティストブロックを探して、一つずつ処理します
     document.querySelectorAll('.artist-block:not(.food-block):not(.search-modal-content .artist-block)').forEach(block => {
-        const nameEl = block.querySelector('.artist-name');
-        const timeEl = block.querySelector('.artist-time');
-        const stageBadge = block.querySelector('.mytt-stage-name');
-        const metaEl = block.querySelector('.artist-meta');
+        const nameEl = block.querySelector('.artist-name'); // アーティスト名の部分
+        const timeEl = block.querySelector('.artist-time'); // 時間表示の部分
+        const stageBadge = block.querySelector('.mytt-stage-name'); // マイタイムテーブルのステージバッジ
+        const metaEl = block.querySelector('.artist-meta'); // ジャンル表示の部分
 
-        if (!nameEl) return;
+        if (!nameEl) return; // 名前がないブロックは無視
 
-        const isRow = block.classList.contains('artist-block-special');
-        let fontSize = isRow ? 11 : 13;
-        const targetEl = nameEl; // 常にバンド名の文字サイズを調整する
+        const isRow = block.classList.contains('artist-block-special'); // 特別レイアウトかどうか
+        let nameFontSize = isRow ? 11 : 13; // アーティスト名の基本フォントサイズ
+        const targetEl = nameEl; // 調整対象をアーティスト名に
 
-        targetEl.style.fontSize = fontSize + 'px';
-        
-        while ((block.scrollHeight > block.offsetHeight || block.scrollWidth > block.clientWidth) && fontSize > 6) {
-            fontSize -= 0.5;
-            targetEl.style.fontSize = fontSize + 'px';
+        // ★★★ 1. まず、ステージバッジの初期フォントサイズを設定します ★★★
+        // 初期値はCSSで定義している 8px です。
+        if (stageBadge) {
+            stageBadge.style.fontSize = '8px';
         }
 
+        // ★★★ 2. 次に、アーティスト名の初期フォントサイズを設定します ★★★
+        targetEl.style.fontSize = nameFontSize + 'px';
+        
+        // ★★★ 3. ブロック全体の収まりをチェックするループ ★★★
+        // 「scrollHeight が offsetHeight より大きい」または「scrollWidth が clientWidth より大きい」ということは、
+        // ブロックの中身が外枠からはみ出していることを意味します。
+        // この状態が解消されるまで、フォントサイズを縮小し続けます。
+        while ((block.scrollHeight > block.offsetHeight || block.scrollWidth > block.clientWidth) && nameFontSize > 6) {
+            let reduced = false; // このループでサイズを縮小したかどうかのフラグ
+
+            // --- 優先度1: ステージバッジを縮小する ---
+            // もしステージバッジが存在し、かつ現在のフォントサイズが 4.5px より大きければ…
+            if (stageBadge) {
+                // 今のフォントサイズを取得（'8px' のような文字列を数値に変換）
+                let currentBadgeSize = parseFloat(getComputedStyle(stageBadge).fontSize);
+                if (currentBadgeSize > 4.5) {
+                    // フォントサイズを0.5px小さくする
+                    stageBadge.style.fontSize = (currentBadgeSize - 0.5) + 'px';
+                    reduced = true; // 縮小したことを記録
+                    // もしこの縮小でブロックの収まりが良くなったら、即座にループを抜ける
+                    if (block.scrollHeight <= block.offsetHeight && block.scrollWidth <= block.clientWidth) break;
+                }
+            }
+            
+            // --- 優先度2: それでもダメならアーティスト名のフォントサイズを縮小する ---
+            nameFontSize -= 0.5; // フォントサイズを0.5px小さくする
+            targetEl.style.fontSize = nameFontSize + 'px'; // 新しいサイズを適用
+            reduced = true; // 縮小したことを記録
+
+            // 安全装置：もし何らかの理由で縮小されなかったら、無限ループを防ぐために抜ける
+            if (!reduced) break; 
+        }
+
+        // ★★★ 4. 最終手段：コンパクトモードの適用 ★★★
+        // 上のループで限界まで小さくしても、まだ縦方向にはみ出している場合
         if (block.scrollHeight > block.offsetHeight) {
-            block.classList.add('compact-mode');
+            block.classList.add('compact-mode'); // CSSで余白などを極限まで削るクラスを追加
             let subFontSize = 10;
+            // 収まるまで、時間やジャンルなどの補助情報のサイズも縮小する
             while ((block.scrollHeight > block.offsetHeight) && subFontSize > 5) {
                 subFontSize -= 0.5;
                 if (timeEl) timeEl.style.fontSize = subFontSize + 'px';
                 if (stageBadge) stageBadge.style.fontSize = Math.max(4, subFontSize - 2) + 'px';
                 if (metaEl) metaEl.style.fontSize = Math.max(5, subFontSize - 2) + 'px';
             }
+        } else {
+            // もしコンパクトモードが不要になったら、クラスを外して表示を元に戻す
+            block.classList.remove('compact-mode');
         }
     });
 }
@@ -1389,20 +1426,25 @@ function showSearchResults(searchText) {
 
             const classes = ['artist-block', isFav ? 'favorited' : '', artist.isLightBg ? 'is-light-bg' : ''].filter(Boolean).join(' ');
 
+            // ★★★ ここから新しいレイアウトのHTML ★★★
             const html = `
                 <div class="${classes}" style="--artist-bg: ${stage.color};">
-                    <div class="artist-top">
-                        <span class="artist-time">${dayLabel} ${timeText} <span class="artist-stage-name">${stage.name}</span></span>
+                    <!-- 1行目：ステージ名 -->
+                    <div class="artist-stage-name search-stage-name">${stage.name}</div>
+                    <!-- 2行目：日程と時間帯 -->
+                    <div class="artist-time search-time">${dayLabel} ${timeText}</div>
+                    <!-- 3行目：アーティスト名と★ボタンを横並びに -->
+                    <div class="artist-name-row">
+                        <div class="artist-name">
+                            <a href="${officialUrl !== '公式HP無し' ? officialUrl : '#'}" 
+                               class="artist-official-link ${officialUrl === '公式HP無し' ? 'no-link' : ''}" 
+                               data-url="${officialUrl}" 
+                               target="${officialUrl !== '公式HP無し' ? '_blank' : '_self'}" 
+                               rel="noopener noreferrer">
+                               ${artist.name}
+                            </a>
+                        </div>
                         <button class="fav-btn ${isFav ? 'active' : ''}" data-fav-id="${favId}">★</button>
-                    </div>
-                    <div class="artist-name">
-                        <a href="${officialUrl !== '公式HP無し' ? officialUrl : '#'}" 
-                           class="artist-official-link ${officialUrl === '公式HP無し' ? 'no-link' : ''}" 
-                           data-url="${officialUrl}" 
-                           target="${officialUrl !== '公式HP無し' ? '_blank' : '_self'}" 
-                           rel="noopener noreferrer">
-                           ${artist.name}
-                        </a>
                     </div>
                 </div>
                 ${spotifyHtml}
