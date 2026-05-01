@@ -166,7 +166,8 @@ const timetableData = {
             e("パフォーマンス：ぼくらのスマイルキッズプロジェクト / 大道芸人S4 / 伝承パフォーマー ぢゃあ（けん玉）", "09:30", "20:00", "Performance", { hideEndTime: true, isLightBg: true })
         ],
         sky: [
-            e("大舌勲（井原市長）開催宣言", "09:30", "09:40", "Speech", { isLightBg: true }),
+            // ★修正点：10分間という短い枠のため、名前を優先して表示する hideTime: true を付与しました
+            e("大舌勲（井原市長）開催宣言", "09:30", "09:40", "", { isLightBg: true, hideTime: true }),
             e("ターコイズ（オーディショングランプリ）", "09:40", "10:10", "Rock"),
             e("SCOOBIE DO", "10:50", "11:40", "Funk/Rock"),
             e("BRADIO", "12:20", "13:10", "Funk/Rock"),
@@ -175,7 +176,8 @@ const timetableData = {
             e("四星球", "16:50", "17:40", "Comic Rock"),
             e("ドミコ", "18:20", "19:15", "Garage Rock"),
             e("Homecomings", "19:55", "20:50", "Indie Pop"),
-            e("星空メッセンジャー ササキユウタ presents 天体観測会", "21:30", "22:30", "Event", { hideEndTime: true })
+            e("星空メッセンジャー ササキユウタ presents 天体観測会", "21:30", "22:30", "Event", { hideEndTime: true }),
+            e("藤井裕士によるラジオ体操", "32:00", "32:10", "", { isLightBg: true, hideTime: true })
         ],
         budou: [
             e("メリケンサック（LOCAL LIVEHOUSE act）", "10:00", "10:30", "Rock"),
@@ -187,23 +189,22 @@ const timetableData = {
             e("クリトリック・リス", "16:00", "16:50", "Electronic"),
             e("鈴木実貴子ズ", "17:20", "18:15", "Acoustic"),
             e("New Sprint（オーディション特別賞）", "18:35", "19:05", "Rock"),
-            e("おとなりアイニー（オーディション特別賞）", "19:35", "20:05", "Rock"),
-            e("藤井裕士によるラジオ体操", "32:00", "32:10", "Exercise", { isLightBg: true })
+            e("おとなりアイニー（オーディション特別賞）", "19:35", "20:05", "Rock")
         ],
         rest: [
-            e("ビア怪談1", "12:30", "13:00", "Talk"),
-            e("野崎新聞健太郎、ノンストップくそ＆シガー・テレシ", "13:00", "13:30", "Talk"),
-            e("ビア怪談2", "13:30", "14:00", "Talk"),
-            e("hoshioto TALK SESSION（永井純一 × 藤井裕士）", "14:30", "15:00", "Talk"),
-            e("ビア怪談3", "16:50", "17:20", "Talk"),
-            e("ビア怪談4", "18:05", "18:35", "Talk"),
-            e("hoshioto TALK SESSION / ササキユウタ（星空メッセンジャー）", "19:05", "19:35", "Talk")
+            e("ビア怪談1<br><span class='guest-item'>●恐怖新聞健太郎<br>●ノンストップくそ＆シガー<br>●テルシ</span></span>", "12:30", "13:00", ""),
+            e("ビア怪談2<br><span class='guest-item'>●恐怖新聞健太郎<br>●ノンストップくそ＆シガー<br>●テルシ</span></span>", "13:30", "14:00", ""),
+            e("hoshioto TALK SESSION（永井純一 × 藤井裕士）", "14:30", "15:00", ""),
+            e("ビア怪談3<br><span class='guest-item'>●恐怖新聞健太郎<br>●ノンストップくそ＆シガー<br>●テルシ</span></span>", "16:50", "17:20", ""),
+            e("ビア怪談4<br><span class='guest-item'>●恐怖新聞健太郎<br>●ノンストップくそ＆シガー<br>●テルシ</span></span>", "18:05", "18:35", ""),
+            e("hoshioto TALK SESSION / ササキユウタ（星空メッセンジャー）", "19:05", "19:35", "")
         ]
     }
 };
 
 // --- 検索用：読み仮名辞書 ---
 const artistYomiDict = {
+    // ... (中略：既存の辞書データそのまま) ...
     "DawnLuLu（オーディション特別賞）": "どーんるる",
     "真舟とわ": "まふねとわ",
     "さとう。": "さとう",
@@ -247,13 +248,13 @@ const artistYomiDict = {
     "おとなりアイニー（オーディション特別賞）": "おとなりあいにー",
     "藤井裕士によるラジオ体操": "ふじいゆうし",
     "ビア怪談": "びあかいだん",
-    "野崎新聞健太郎、ノンストップくそ＆シガー・テレシ": "のざきしんぶんけんたろう",
     "hoshioto TALK SESSION（永井純一 × 藤井裕士）": "ほしおととーくせっしょん",
     "hoshioto TALK SESSION / ササキユウタ（星空メッセンジャー）": "ほしおととーくせっしょん"
 };
 
 // --- 公式HPリンク辞書 ---
 const artistLinkDict = {
+    // ... (中略：既存の辞書データそのまま) ...
     "DawnLuLu（オーディション特別賞）": "https://dawnlulu.fanpla.jp/",
     "真舟とわ": "https://lit.link/mafunetowa",
     "さとう。": "https://sato-darari.jp/",
@@ -273,8 +274,7 @@ const artistLinkDict = {
     "bacho": "https://bacho.jp/",
     "グソクムズ": "https://www.gusokumuzu.com/",
     "石崎ひゅーい": "https://www.ishizakihuwie.com/",
-    "sleepy.ab× 近藤康平(ライブペインティング) × mona(調香師)":
-"https://sleepyab.info/", 
+    "sleepy.ab× 近藤康平(ライブペインティング) × mona(調香師)": "https://sleepyab.info/", 
     "TOMOVSKY": "http://www.tomovsky.com/",
     "大舌勲（井原市長）開催宣言": "",
     "ターコイズ（オーディショングランプリ）": "https://lit.link/bR3u5vaolkQjClQEZfpP8bUEiy63",
@@ -298,15 +298,13 @@ const artistLinkDict = {
     "おとなりアイニー（オーディション特別賞）": "https://fanlink.tv/otonari-ainy",
     "藤井裕士によるラジオ体操": "",
     "ビア怪談": "",
-    "野崎新聞健太郎、ノンストップくそ＆シガー・テレシ": "",
     "hoshioto TALK SESSION（永井純一 × 藤井裕士）": "",
     "hoshioto TALK SESSION / ササキユウタ（星空メッセンジャー）": ""
 };
 
-// --- 【追加】Spotifyリンク辞書 ---
-// 検索ベース名とSpotifyの埋め込み(Embed)URLの紐付けです。
-// URLが存在しない場合は「Spotify無し」と記載します。
+// --- Spotifyリンク辞書 ---
 const artistSpotifyDict = {
+    // ... (中略：既存の辞書データそのまま) ...
     "町長挨拶": "",
     "川崎中学校吹奏楽部": "",
     "ストレイテナー": "https://open.spotify.com/embed/artist/4q5fHrf0Q0R6imQ3etjXEG?utm_source=generator&theme=0",
@@ -471,29 +469,19 @@ function getCurrentMinsForDay(dayKey) {
 
 // --- 指定した日の現在時刻の1時間前に自動スクロールする関数 ---
 function scrollToCurrentTime(dayKey) {
-    // スクロールさせる対象のエリア（HTMLの id="ttScrollArea"）を取得します
     const scrollArea = document.getElementById('ttScrollArea');
-    if (!scrollArea) return; // エリアが見つからなければ処理を中止します
+    if (!scrollArea) return; 
 
-    // 現在時刻がその日の開始時刻から何分経過しているかを計算します
     const currentMins = getCurrentMinsForDay(dayKey);
 
-    // 該当日ではない（currentMins が -1）場合、一番上（0）に戻して処理を終わります
     if (currentMins < 0) {
         scrollArea.scrollTop = 0;
         return;
     }
 
-    // 1時間前（60分前）の分数を計算します。
-    // マイナスにならないように Math.max(0, ...) を使い、最低でも0（一番上）になるようにします
     const targetMins = Math.max(0, currentMins - 60);
-
-    // CSSの変数（--px-per-min）を取得して、1分あたり何ピクセルで描画されているか調べます
     const rootStyles = getComputedStyle(document.documentElement);
-    // 変数が見つからない場合は予備として '2' を使います
     const pxPerMin = parseFloat(rootStyles.getPropertyValue('--px-per-min')) || 2;
-
-    // 分数をピクセルに変換して、上からのスクロール位置（scrollTop）に設定します
     scrollArea.scrollTop = targetMins * pxPerMin;
 }
 
@@ -501,17 +489,14 @@ function scrollToCurrentTime(dayKey) {
 function applyAppConfig() {
     const ui = APP_CONFIG.ui;
     
-    // アプリタイトルなどをHTMLに反映します
     if(document.getElementById('appTitle')) document.getElementById('appTitle').innerHTML = APP_CONFIG.festivalName;
     
-    // 公式リンクの設定を反映します
     const officialLinkEl = document.getElementById('officialLink');
     if(officialLinkEl) {
         officialLinkEl.href = APP_CONFIG.officialUrl;
         officialLinkEl.innerHTML = ui.officialLinkText;
     }
 
-    // 各種テキストをHTMLに流し込みます
     if(document.getElementById('disclaimerText')) document.getElementById('disclaimerText').innerHTML = ui.disclaimer;
     if(document.getElementById('artistSearchInput')) document.getElementById('artistSearchInput').placeholder = ui.searchPlaceholder;
     if(document.getElementById('btnFood')) document.getElementById('btnFood').textContent = ui.tabFood;
@@ -533,7 +518,6 @@ function applyAppConfig() {
     if(document.getElementById('btnZoomOut')) document.getElementById('btnZoomOut').textContent = ui.mapZoomOut;
     if(document.getElementById('btnZoomReset')) document.getElementById('btnZoomReset').textContent = ui.mapZoomReset;
 
-    // 流用しやすいように、APP_CONFIG.days の日数に合わせてDayタブボタンを自動生成します
     const tabContainer = document.getElementById('tabContainer');
     const firstStaticTab = document.getElementById('btnFood'); 
     
@@ -548,7 +532,6 @@ function applyAppConfig() {
         tabContainer.insertBefore(btn, firstStaticTab);
     });
 
-    // マップ画像をHTMLに追加します
     const mapWrapper = document.getElementById('mapWrapper');
     if (mapWrapper && APP_CONFIG.mapImages) {
         APP_CONFIG.mapImages.forEach(src => {
@@ -560,7 +543,6 @@ function applyAppConfig() {
         });
     }
 
-    // 天気情報をHTMLに追加します
     if(document.getElementById('weatherTitle')) document.getElementById('weatherTitle').textContent = APP_CONFIG.weather.areaName;
     const weatherContainer = document.getElementById('weatherIframeContainer');
     if (weatherContainer && APP_CONFIG.weather.iframeUrl) {
@@ -570,14 +552,12 @@ function applyAppConfig() {
         weatherContainer.appendChild(iframe);
     }
 
-    // 出典情報を設定します
     const sourceHtml = `${APP_CONFIG.source.text}<br>（<a href="${APP_CONFIG.source.url}" target="_blank" rel="noopener noreferrer" class="source-link">${APP_CONFIG.source.url}</a>）`;
     document.querySelectorAll('.source-credit').forEach(el => el.innerHTML = sourceHtml);
 }
 
 // --- 画面上のボタンにイベント（クリック時の動作）を一括で割り当てる関数 ---
 function setupEventListeners() {
-    // 1. タブ切り替えボタンのクリックイベント
     APP_CONFIG.days.forEach(day => {
         const btnId = 'btn' + day.id.charAt(0).toUpperCase() + day.id.slice(1);
         const btn = document.getElementById(btnId);
@@ -589,12 +569,10 @@ function setupEventListeners() {
     document.getElementById('btnWeather').addEventListener('click', () => switchTab('weather'));
     document.getElementById('btnMemo').addEventListener('click', () => switchTab('memo'));
 
-    // 2. マップのズームボタンのクリックイベント
     document.getElementById('btnZoomIn').addEventListener('click', () => zoomMap(0.2));
     document.getElementById('btnZoomOut').addEventListener('click', () => zoomMap(-0.2));
     document.getElementById('btnZoomReset').addEventListener('click', () => resetZoom());
 
-    // 3. タイムテーブル内の「★ボタン」のクリックイベント
     document.getElementById('gridContainer').addEventListener('click', (e) => {
         if (e.target.classList.contains('fav-btn')) {
             const favId = e.target.getAttribute('data-fav-id');
@@ -602,7 +580,6 @@ function setupEventListeners() {
         }
     });
 
-    // 4. フード画面の「エリア開閉」と「★ボタン」のクリックイベント
     document.getElementById('foodContainer').addEventListener('click', (e) => {
         const toggleEl = e.target.closest('.food-area-toggle');
         if (toggleEl) {
@@ -615,9 +592,7 @@ function setupEventListeners() {
         }
     });
 
-    // 5. 検索結果モーダル内の各種ボタンのクリックイベント
     document.getElementById('searchModalContent').addEventListener('click', (e) => {
-        // --- 既存の「★」ボタンの処理 ---
         if (e.target.classList.contains('fav-btn')) {
             const favId = e.target.getAttribute('data-fav-id');
             if (favId) {
@@ -634,30 +609,23 @@ function setupEventListeners() {
             }
         }
 
-        // --- 公式HPリンクのクリック処理 ---
-        // closest()を使って、クリックされた場所から一番近い <a> タグを探します
         const linkEl = e.target.closest('.artist-official-link');
         if (linkEl) {
-            // HTMLのデータ属性(data-url)からURLの意味（データ）を取り出します
             const url = linkEl.getAttribute('data-url');
-            
-            // データが「公式HP無し」という状態であれば、リンク移動を止めてアラートを出します
             if (url === "公式HP無し") {
-                e.preventDefault(); // <a>タグ本来の「別のページへ飛ぶ」動作をキャンセルします
+                e.preventDefault(); 
                 alert('【公式HP無し】');
             }
         }
     });
 }
 
-// タイムテーブルのお気に入り状態を切り替える関数です
 function toggleFav(id) {
     favorites[id] ? delete favorites[id] : favorites[id] = true;
     saveFavorites();
     renderTimetable(); 
 }
 
-// フードのお気に入り状態を切り替える関数です
 function toggleFoodFav(id) {
     const index = foodFavoritesOrder.findIndex(item => item.id === id);
     if (index > -1) {
@@ -670,31 +638,25 @@ function toggleFoodFav(id) {
     renderFoodSection(); 
 }
 
-// フードのエリア（アコーディオン）を開閉する関数です
 function toggleFoodArea(element) {
     element.classList.toggle('open');
     const content = element.nextElementSibling;
     if(content) content.classList.toggle('open');
 }
 
-// "HH:MM" 形式の時刻を、タイムテーブル上の表示位置（分単位）に変換します
 function timeToMins(timeStr) {
     const [h, m] = timeStr.split(':').map(Number);
     const adjustedH = h < APP_CONFIG.startHour ? h + 24 : h;
     return (adjustedH - APP_CONFIG.startHour) * 60 + m;
 }
 
-// "HH:MM" を "H:MM" に整えて表示するための関数です
 function formatTimeDisplay(timeStr) {
     let [h, m] = timeStr.split(':').map(Number);
-    if(h >= 24) h -= 24; // 25時などを元の1時表記に戻します
-    // テンプレートリテラルを使って、分が1桁の場合は前に0を付けて綺麗に整えます
+    if(h >= 24) h -= 24; 
     return `${h}:${m.toString().padStart(2, '0')}`;
 }
 
-// タブを切り替える関数です
 function switchTab(target) {
-    // 全てのタブと画面から 'active' クラスを外します
     document.querySelectorAll('.tab-btn, .content-section').forEach(el => el.classList.remove('active'));
 
     const dayMatch = target.match(/^day(\d+)$/);
@@ -706,11 +668,8 @@ function switchTab(target) {
         if(btnEl) btnEl.classList.add('active');
         document.getElementById('timetableSection').classList.add('active');
         
-        // タイムテーブルを描画します
         renderTimetable(); 
         
-        // タイムテーブルを描画した直後に、現在時刻の1時間前に自動スクロールさせます
-        // 画面の描画が完了してから確実にスクロールさせるため、setTimeoutで少しだけ時間差（10ミリ秒）を設けます
         setTimeout(() => {
             scrollToCurrentTime(`day${currentDay}`);
         }, 10);
@@ -723,7 +682,6 @@ function switchTab(target) {
         if(sectionEl) sectionEl.classList.add('active');
     }
     
-    // 天気タブの場合はオフラインかどうかチェックします
     if (target === 'weather') {
         checkWeatherOnlineStatus(); 
         const weatherSection = document.getElementById('weatherSection');
@@ -732,11 +690,9 @@ function switchTab(target) {
         }
     }
     
-    // 次回開いた時のために最後に開いたタブを記憶します
     localStorage.setItem(LAST_TAB_KEY, target);
 }
 
-// ネットに繋がっているか確認する関数です（天気用）
 function checkWeatherOnlineStatus() {
     const weatherSection = document.getElementById('weatherSection');
     if (weatherSection) {
@@ -750,142 +706,142 @@ function checkWeatherOnlineStatus() {
 window.addEventListener('online', checkWeatherOnlineStatus);
 window.addEventListener('offline', checkWeatherOnlineStatus);
 
-// タイムテーブルのステージ名（ヘッダー）を描画する関数です
 function renderHeaders(myttCols) {
-    let html = ''; // ここに作っていくHTMLの文字を貯めていきます
+    let html = ''; 
 
     if(myttCols > 0) {
-        // 【修正点】マイタイムテーブルのヘッダー部分
-        // style="..." の中に「background-color: #fff; z-index: 20;」を追加しました。
-        // background-color: #fff; → 背景を白にして、裏の文字を透けさせません。
-        // z-index: 20; → 数字を大きくすることで、アーティスト名（通常は1など）より常に手前に表示させます。
         html += `<div class="stage-header mytt" style="--mytt-cols: ${myttCols}; background-color: #fff; z-index: 20;">
                     <div class="stage-name mytt">マイタイテ</div>
                  </div>`;
     }
     
-    // 全てのステージ（陸奥、荒吐など）を順番に処理します
     stagesInfo.forEach(stage => {
-        // 色情報はCSSの変数として渡します
         const style = `style="--stage-color: ${stage.color};"`;
-        
-        // 【修正点】各ステージのヘッダー部分
-        // こちらも同じく背景を白にし、z-indexを指定して他の要素の上に重なるようにします。
         html += `<div class="stage-header" style="background-color: #fff; z-index: 20;">
                     <div class="stage-name" ${style}>${stage.name}</div>
                  </div>`;
     });
     
-    // 出来上がったHTMLを、実際の画面（stageHeadersというIDの場所）に流し込みます
     document.getElementById('stageHeaders').innerHTML = html;
 }
 
-// 1つのアーティストのブロック（四角い箱）のHTMLを作る関数です
+// ★修正点：1つのアーティストのブロック（四角い箱）のHTMLを作る関数です
 function getArtistHtml(artist, stage, dayKey, isMyTT = false, currentMins = -1) {
+    // --- 1. 時間と高さの計算 ---
     const startMin = timeToMins(artist.start);
     const endMin = timeToMins(artist.end);
-    const duration = endMin - startMin;
+    const duration = endMin - startMin; // ブロックの高さになります
 
+    // --- 2. お気に入り状態の確認 ---
     const favId = getFavId(dayKey, stage.id, artist.name);
     const isFav = favorites[favId];
     
-    // 現在時刻がこのアーティストの演奏時間内かどうか判定します
     let isPlaying = false;
     if (currentMins >= startMin && currentMins < endMin) {
         isPlaying = true;
     }
 
-    // 色を薄くする（is-light-bg）などの「意味」だけをCSSのクラスとして渡します
-    const classes = ['artist-block', isFav && 'favorited', isPlaying && 'playing', artist.isLightBg && 'is-light-bg'].filter(Boolean).join(' ');
+    // --- 3. クラス名の付与（見た目の切り替えスイッチ） ---
+    // artist.hideTime が true の場合、CSSに処理を任せるための 'is-time-hidden' クラスを追加します
+    const classes = [
+        'artist-block', 
+        isFav && 'favorited', 
+        isPlaying && 'playing', 
+        artist.isLightBg && 'is-light-bg',
+        artist.hideTime && 'is-time-hidden' // ★ここが追加点：「時間を隠す」意味を持つクラス
+    ].filter(Boolean).join(' ');
     
-    // 【ルール厳守】マイタイムテーブル用のステージバッジHTML（配置は一切変更していません）
+    // --- 4. マイタイムテーブル用のステージ名バッジ（※配置変更禁止箇所） ---
     const stageBadgeHtml = isMyTT ? `<div class="mytt-stage-name">${stage.name}</div>` : '';
 
     if (artist.isSpecialLayout) {
-        const displayTime = artist.displayTime || `${formatTimeDisplay(artist.start)}-`;
+        // ※特殊レイアウト（isSpecialLayout）を使用するブロックの処理です
+        const timeHtml = artist.hideTime ? '' : `<span class="artist-time">${artist.displayTime || formatTimeDisplay(artist.start) + '-'}</span>`;
         const inlineStageBadge = isMyTT ? `<span class="mytt-stage-name inline-badge">${stage.name}</span>` : '';
-        return `<div class="${classes} artist-block-special" style="--start-min: ${startMin}; --duration: ${duration}; --artist-bg: ${stage.color};">
-                    ${inlineStageBadge}
-                    <span class="artist-time">${displayTime}</span>
-                    <span class="artist-name">${artist.name}</span>
-                    <button class="fav-btn ${isFav ? 'active' : ''}" data-fav-id="${favId}">★</button>
-                </div>`;
+        return `
+            <div class="${classes} artist-block-special" style="--start-min: ${startMin}; --duration: ${duration}; --artist-bg: ${stage.color};">
+                ${inlineStageBadge}
+                ${timeHtml}
+                <span class="artist-name">${artist.name}</span>
+                <button class="fav-btn ${isFav ? 'active' : ''}" data-fav-id="${favId}">★</button>
+            </div>`;
     }
 
-    const displayGenre = (artist.hideEndTime || isMyTT) ? "" : (artist.genre || "");
+    // --- 5. 時間表示のHTML骨組み生成 ---
     const timeText = artist.hideEndTime ? `${formatTimeDisplay(artist.start)}-` : `${formatTimeDisplay(artist.start)}-${formatTimeDisplay(artist.end)}`;
+    
+    // JSロジック側：データに「hideTime: true」があれば時間を空っぽにし、なければ時間を表示するHTMLを作ります
+    const timeHtml = artist.hideTime ? '' : `<span class="artist-time">${timeText}</span>`;
+    
+    // --- 6. ジャンル表示のHTML骨組み生成 ---
+    const displayGenre = (artist.hideEndTime || isMyTT) ? "" : (artist.genre || "");
     const metaHtml = displayGenre ? `<div class="artist-meta">${displayGenre}</div>` : '';
     
-    return `<div class="${classes}" style="--start-min: ${startMin}; --duration: ${duration}; --artist-bg: ${stage.color};">
-                ${stageBadgeHtml}
-                <div class="artist-top">
-                    <span class="artist-time">${timeText}</span>
-                    <button class="fav-btn ${isFav ? 'active' : ''}" data-fav-id="${favId}">★</button>
-                </div>
-                <div class="artist-name">${artist.name}</div>
-                ${metaHtml}
-            </div>`;
+    // --- 7. 最終的なHTMLの組み立て ---
+    // HTML側：骨組みとクラス名だけに徹し、レイアウトは全てCSSに任せます
+    return `
+    <!-- 1つのアーティストのブロック（箱） -->
+    <div class="${classes}" style="--start-min: ${startMin}; --duration: ${duration}; --artist-bg: ${stage.color};">
+        
+        <!-- 1. マイタイムテーブル用のステージ名（絶対一番上に固定） -->
+        ${stageBadgeHtml}
+        
+        <!-- 2. トップ部分（時間と★ボタンの枠） -->
+        <div class="artist-top">
+            ${timeHtml} <!-- ★時間を隠す指示があればここは空になります -->
+            <button class="fav-btn ${isFav ? 'active' : ''}" data-fav-id="${favId}">★</button>
+        </div>
+        
+        <!-- 3. アーティスト名の枠 -->
+        <div class="artist-name">${artist.name}</div>
+        
+        <!-- 4. その他の情報（ジャンルなど）の枠 -->
+        ${metaHtml}
+        
+    </div>`;
 }
 
-// ブロックからはみ出る文字のサイズを自動で小さくする関数です
 function adjustFontSize() {
-    // タイムテーブル上の全てのアーティストブロックを探して、一つずつ処理します
     document.querySelectorAll('.artist-block:not(.food-block):not(.search-modal-content .artist-block)').forEach(block => {
-        const nameEl = block.querySelector('.artist-name'); // アーティスト名の部分
-        const timeEl = block.querySelector('.artist-time'); // 時間表示の部分
-        const stageBadge = block.querySelector('.mytt-stage-name'); // マイタイムテーブルのステージバッジ
-        const metaEl = block.querySelector('.artist-meta'); // ジャンル表示の部分
+        const nameEl = block.querySelector('.artist-name'); 
+        const timeEl = block.querySelector('.artist-time'); 
+        const stageBadge = block.querySelector('.mytt-stage-name'); 
+        const metaEl = block.querySelector('.artist-meta'); 
 
-        if (!nameEl) return; // 名前がないブロックは無視
+        if (!nameEl) return; 
 
-        const isRow = block.classList.contains('artist-block-special'); // 特別レイアウトかどうか
-        let nameFontSize = isRow ? 11 : 13; // アーティスト名の基本フォントサイズ
-        const targetEl = nameEl; // 調整対象をアーティスト名に
+        const isRow = block.classList.contains('artist-block-special'); 
+        let nameFontSize = isRow ? 11 : 13; 
+        const targetEl = nameEl; 
 
-        // ★★★ 1. まず、ステージバッジの初期フォントサイズを設定します ★★★
-        // 初期値はCSSで定義している 8px です。
         if (stageBadge) {
             stageBadge.style.fontSize = '8px';
         }
 
-        // ★★★ 2. 次に、アーティスト名の初期フォントサイズを設定します ★★★
         targetEl.style.fontSize = nameFontSize + 'px';
         
-        // ★★★ 3. ブロック全体の収まりをチェックするループ ★★★
-        // 「scrollHeight が offsetHeight より大きい」または「scrollWidth が clientWidth より大きい」ということは、
-        // ブロックの中身が外枠からはみ出していることを意味します。
-        // この状態が解消されるまで、フォントサイズを縮小し続けます。
         while ((block.scrollHeight > block.offsetHeight || block.scrollWidth > block.clientWidth) && nameFontSize > 6) {
-            let reduced = false; // このループでサイズを縮小したかどうかのフラグ
+            let reduced = false; 
 
-            // --- 優先度1: ステージバッジを縮小する ---
-            // もしステージバッジが存在し、かつ現在のフォントサイズが 4.5px より大きければ…
             if (stageBadge) {
                 let currentBadgeSize = parseFloat(getComputedStyle(stageBadge).fontSize);
                 if (currentBadgeSize > 4.5) {
-                    // フォントサイズを0.5px小さくする
                     stageBadge.style.fontSize = (currentBadgeSize - 0.5) + 'px';
-                    reduced = true; // 縮小したことを記録
-                    // もしこの縮小でブロックの収まりが良くなったら、即座にループを抜ける
+                    reduced = true; 
                     if (block.scrollHeight <= block.offsetHeight && block.scrollWidth <= block.clientWidth) break;
                 }
             }
             
-            // --- 優先度2: それでもダメならアーティスト名のフォントサイズを縮小する ---
-            nameFontSize -= 0.5; // フォントサイズを0.5px小さくする
-            targetEl.style.fontSize = nameFontSize + 'px'; // 新しいサイズを適用
-            reduced = true; // 縮小したことを記録
+            nameFontSize -= 0.5; 
+            targetEl.style.fontSize = nameFontSize + 'px'; 
+            reduced = true; 
 
-            // 安全装置：もし何らかの理由で縮小されなかったら、無限ループを防ぐために抜ける
             if (!reduced) break; 
         }
 
-        // ★★★ 4. 最終手段：コンパクトモードの適用 ★★★
-        // 上のループで限界まで小さくしても、まだ縦方向にはみ出している場合
         if (block.scrollHeight > block.offsetHeight) {
-            block.classList.add('compact-mode'); // CSSで余白などを極限まで削るクラスを追加
+            block.classList.add('compact-mode'); 
             let subFontSize = 10;
-            // 収まるまで、時間やジャンルなどの補助情報のサイズも縮小する
             while ((block.scrollHeight > block.offsetHeight) && subFontSize > 5) {
                 subFontSize -= 0.5;
                 if (timeEl) timeEl.style.fontSize = subFontSize + 'px';
@@ -893,19 +849,16 @@ function adjustFontSize() {
                 if (metaEl) metaEl.style.fontSize = Math.max(5, subFontSize - 2) + 'px';
             }
         } else {
-            // もしコンパクトモードが不要になったら、クラスを外して表示を元に戻す
             block.classList.remove('compact-mode');
         }
     });
 }
 
-// タイムテーブル全体を描画する関数です
 function renderTimetable() {
     const dayKey = `day${currentDay}`;
     const data = timetableData[dayKey];
-    if (!data) return; // データが存在しない場合は処理を抜けます
+    if (!data) return; 
 
-    // 時間の目盛りを作ります
     let timeHtml = '';
     for(let h = APP_CONFIG.startHour; h <= APP_CONFIG.endHour; h++) {
         timeHtml += `<div class="time-slot"><span>${h >= 24 ? h-24 : h}:00</span></div>`;
@@ -914,7 +867,6 @@ function renderTimetable() {
 
     const currentMins = getCurrentMinsForDay(dayKey);
 
-    // マイタイムテーブル（お気に入り）に登録されたアーティストを集めます
     let myTtItems = [];
     stagesInfo.forEach((stage, stageIndex) => {
         (data[stage.id] || []).forEach(artist => {
@@ -932,7 +884,6 @@ function renderTimetable() {
         myTtItems.sort((a,b) => timeToMins(a.artist.start) - timeToMins(b.artist.start));
     }
 
-    // 時間が被っている場合は横に並べる処理（カラム分け）を行います
     let myTtColumns = []; 
     myTtItems.forEach(item => {
         let maxOverlapCol = -1;
@@ -962,7 +913,6 @@ function renderTimetable() {
     const myTtColCount = myTtItems.length ? myTtColumns.length : 0;
     renderHeaders(myTtColCount); 
 
-    // HTMLに変換して流し込みます
     let gridHtml = '';
     if(myTtColCount > 0) {
         myTtColumns.forEach(col => {
@@ -975,7 +925,6 @@ function renderTimetable() {
         gridHtml += `<div class="grid-col"><div class="grid-bg-lines"></div>${content}</div>`;
     });
 
-    // ここで現在時刻の線をHTMLの最後に追加しています
     gridHtml += `<div class="current-time-line" id="currentTimeLine"></div>`;
     
     const gridContainer = document.getElementById('gridContainer');
@@ -988,7 +937,6 @@ function renderTimetable() {
     adjustFontSize(); 
 }
 
-// 現在時刻の赤い横線を正しい位置に動かす関数です
 function updateCurrentTimeLine() {
     const line = document.getElementById('currentTimeLine');
     if(!line) return;
@@ -998,7 +946,6 @@ function updateCurrentTimeLine() {
 
     const maxMins = (APP_CONFIG.endHour - APP_CONFIG.startHour) * 60;
 
-    // 分数が0～最大分数の間に収まっている時だけ線を表示します
     if(currentMins >= 0 && currentMins <= maxMins) {
         line.classList.add('is-visible');
         line.style.setProperty('--current-min', currentMins); 
@@ -1007,7 +954,6 @@ function updateCurrentTimeLine() {
     line.classList.remove('is-visible'); 
 }
 
-// 1つのフード店舗のカード（HTML）を作る関数です
 function generateFoodCard(shop, areaName, isDraggable = false) {
     const menuItems = shop.menus.map(m => `<li>${m}</li>`).join('');
     const messageHtml = shop.message.replace(/\n/g, '<br>');
@@ -1034,7 +980,6 @@ function generateFoodCard(shop, areaName, isDraggable = false) {
     </div>`;
 }
 
-// フード一覧画面全体を描画する関数です
 function renderFoodSection() {
     let html = '';
     const ui = APP_CONFIG.ui;
@@ -1079,7 +1024,6 @@ function renderFoodSection() {
     setupDragAndDrop(); 
 }
 
-// フードのお気に入りをドラッグして並べ替えるための準備です
 function setupDragAndDrop() {
     const container = document.getElementById('foodFavoritesList');
     if (!container) return;
@@ -1107,8 +1051,7 @@ function setupDragAndDrop() {
     });
 }
 
-// ドラッグ中、どのカードの下に挿入すべきかを計算する関数です
-function getDragAfterElement(container, x) { // xだけでOK
+function getDragAfterElement(container, x) { 
     const draggableElements = [...container.querySelectorAll('.draggable-card:not(.dragging)')];
     return draggableElements.reduce((closest, child) => {
         const box = child.getBoundingClientRect();
@@ -1121,7 +1064,6 @@ function getDragAfterElement(container, x) { // xだけでOK
     }, { offset: Number.NEGATIVE_INFINITY }).element;
 }
 
-// ドラッグで並び替えた後の新しい順番を保存する関数です
 function updateFoodFavoritesOrder() {
     const container = document.getElementById('foodFavoritesList');
     const cards = container.querySelectorAll('.draggable-card');
@@ -1135,10 +1077,8 @@ function updateFoodFavoritesOrder() {
     saveFoodFavorites();
 }
 
-// マップの拡大縮小を行う関数です
 function zoomMap(delta) {
     mapScale = Math.min(Math.max(0.5, mapScale + delta), 3.0);
-    // JSは現在の倍率をCSSに渡すだけにします
     document.getElementById('mapWrapper').style.setProperty('--map-scale', mapScale);
 }
 function resetZoom() {
@@ -1146,7 +1086,6 @@ function resetZoom() {
     document.getElementById('mapWrapper').style.setProperty('--map-scale', mapScale);
 }
 
-// 画面右上のデジタル時計を更新する関数です
 function updateClock() {
     const now = new Date();
     const h = String(now.getHours()).padStart(2, '0');
@@ -1156,7 +1095,6 @@ function updateClock() {
     if (clockElement) clockElement.textContent = `${h}:${m}:${s}`;
 }
 
-// このファイルの最終更新日時を表示する関数です
 function displayLastModified() {
     const lastMod = new Date(document.lastModified);
     const y = lastMod.getFullYear();
@@ -1172,7 +1110,6 @@ function displayLastModified() {
 
 // ---------------- 以下、検索機能系の処理 ----------------
 
-// 検索を高速に行うため、事前にデータを整理してリストアップする関数です
 function buildArtistSearchData() {
     const baseNameMap = new Map(); 
     fullArtistData = [];
@@ -1226,7 +1163,6 @@ function buildArtistSearchData() {
     });
 }
 
-// 検索ボックスに文字が入力された時の動きを設定する関数です
 function setupSearch() {
     buildArtistSearchData();
     const searchInput = document.getElementById('artistSearchInput');
@@ -1239,7 +1175,6 @@ function setupSearch() {
         suggestList.innerHTML = '';
 
         if (query.length === 0) {
-            // クラスを外して非表示にします
             suggestList.classList.remove('is-active');
             return;
         }
@@ -1257,7 +1192,6 @@ function setupSearch() {
                 });
                 suggestList.appendChild(li);
             });
-            // クラスを付けて表示します
             suggestList.classList.add('is-active');
         } else {
             suggestList.classList.remove('is-active');
@@ -1279,9 +1213,7 @@ function setupSearch() {
     modalOverlay.addEventListener('click', closeSearchModal);
 }
 
-// 検索結果のポップアップを閉じる関数です
 function closeSearchModal() {
-    // スタイルを直接書き換えず、クラスを外すことでCSSに非表示を任せます
     document.getElementById('searchModal').classList.remove('is-active');
     document.getElementById('searchModalOverlay').classList.remove('is-active');
     const searchInput = document.getElementById('artistSearchInput');
@@ -1291,7 +1223,6 @@ function closeSearchModal() {
     suggestList.innerHTML = '';
 }
 
-// 分を「〇時間〇分」という文字に変換する関数です
 function formatDiffTime(mins) {
     if (mins >= 60) {
         const h = Math.floor(mins / 60);
@@ -1302,7 +1233,6 @@ function formatDiffTime(mins) {
     }
 }
 
-// 「演奏開始まであと何分」を計算してHTMLを作る関数です
 function getArtistTimeStatusHtml(artist, dayDateStr) {
     if (!artist.start) return "";
     const now = new Date();
@@ -1353,7 +1283,6 @@ function getArtistTimeStatusHtml(artist, dayDateStr) {
     }
 }
 
-// 検索結果のポップアップ画面を作る関数です
 function showSearchResults(searchText) {
     const query = normalizeForSearch(searchText.trim());
     if (!query) return;
@@ -1404,7 +1333,6 @@ function showSearchResults(searchText) {
             const dayLabel = APP_CONFIG.days.find(d => d.id === dayKey)?.label || dayKey;
             const timeText = artist.end ? `${formatTimeDisplay(artist.start)}-${formatTimeDisplay(artist.end)}` : `${formatTimeDisplay(artist.start)}-`;
 
-            // 公式HPのURLを取得します
             const officialUrl = artistLinkDict[item.searchName] || "公式HP無し";
             
             let spotifyHtml = "";
@@ -1425,14 +1353,10 @@ function showSearchResults(searchText) {
 
             const classes = ['artist-block', isFav ? 'favorited' : '', artist.isLightBg ? 'is-light-bg' : ''].filter(Boolean).join(' ');
 
-            // ★★★ ここから新しいレイアウトのHTML ★★★
             const html = `
                 <div class="${classes}" style="--artist-bg: ${stage.color};">
-                    <!-- 1行目：ステージ名 -->
                     <div class="artist-stage-name search-stage-name">${stage.name}</div>
-                    <!-- 2行目：日程と時間帯 -->
                     <div class="artist-time search-time">${dayLabel} ${timeText}</div>
-                    <!-- 3行目：アーティスト名と★ボタンを横並びに -->
                     <div class="artist-name-row">
                         <div class="artist-name">
                             <a href="${officialUrl !== '公式HP無し' ? officialUrl : '#'}" 
@@ -1452,18 +1376,15 @@ function showSearchResults(searchText) {
         });
     });
 
-    // スタイルを直接書き換えず、クラスを付与することでCSSに表示を任せます
     document.getElementById('searchModalOverlay').classList.add('is-active');
     document.getElementById('searchModal').classList.add('is-active');
 }
 
-// --- ページが読み込まれたときに最初に動く処理 ---
 window.addEventListener('DOMContentLoaded', () => {
-    applyAppConfig(); // まず初めにHTMLの空箱に文字やボタンを流し込みます
-    setupEventListeners(); // ボタンが作られた後で、クリックした時の動きを設定します
+    applyAppConfig(); 
+    setupEventListeners(); 
     setupSearch();
 
-    // 前回閉じた時のタブを記憶していればそこを開き、なければDay1を開きます
     const lastTab = localStorage.getItem(LAST_TAB_KEY) || (APP_CONFIG.days[0] ? APP_CONFIG.days[0].id : 'food');
     switchTab(lastTab); 
 
