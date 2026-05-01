@@ -630,3 +630,34 @@ h1 { font-size: 16px; margin: 0 0 10px 0; }
     margin-bottom: 16px; /* 次のアーティストカードとの隙間 */
     font-weight: bold; /* 少し太字にして読みやすくします */
 }
+
+/* ==========================================
+   時間を隠すブロック（10分などの短い枠用）の見た目
+   ========================================== */
+
+/* ブロック全体：中の要素を浮かせるための基準（relative）にします */
+.artist-block.is-time-hidden {
+    position: relative;
+    padding: 2px 4px; /* 上下の余白をギリギリまで詰めます */
+}
+
+/* ★ボタンが入っている枠：右上に浮かせて（absolute）場所を固定します */
+.artist-block.is-time-hidden .artist-top {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    margin: 0;
+    height: auto;
+    display: block; /* フレックスボックスを解除して独立させます */
+}
+
+/* アーティスト名：右に浮いている★ボタンと重ならないように、右側に余白（padding-right）を空けます */
+.artist-block.is-time-hidden .artist-name {
+    margin-top: 0;
+    padding-right: 18px; 
+}
+
+/* マイタイムテーブルのステージ名バッジ：元の配置ルールを一切崩さず、そのままの位置をキープします */
+.artist-block.is-time-hidden .mytt-stage-name {
+    margin-bottom: 2px;
+}
