@@ -191,12 +191,12 @@ const timetableData = {
             e("藤井裕士によるラジオ体操", "32:00", "32:10", "Exercise", { isLightBg: true })
         ],
         rest: [
-            e("ビア怪談", "12:30", "13:00", "Talk"),
+            e("ビア怪談1", "12:30", "13:00", "Talk"),
             e("野崎新聞健太郎、ノンストップくそ＆シガー・テレシ", "13:00", "13:30", "Talk"),
-            e("ビア怪談", "13:30", "14:00", "Talk"),
+            e("ビア怪談2", "13:30", "14:00", "Talk"),
             e("hoshioto TALK SESSION（永井純一 × 藤井裕士）", "14:30", "15:00", "Talk"),
-            e("ビア怪談", "16:50", "17:20", "Talk"),
-            e("ビア怪談", "18:05", "18:35", "Talk"),
+            e("ビア怪談3", "16:50", "17:20", "Talk"),
+            e("ビア怪談4", "18:05", "18:35", "Talk"),
             e("hoshioto TALK SESSION / ササキユウタ（星空メッセンジャー）", "19:05", "19:35", "Talk")
         ]
     }
@@ -398,7 +398,7 @@ const artistSpotifyDict = {
     "坂本サトル ARABAKI special": "https://open.spotify.com/embed/artist/75AF7cfhi0GLa1HJXgspn8?utm_source=generator&theme=0",
     "luv": "https://open.spotify.com/embed/artist/2Gy7SZvabW5UQgL0oljfeB?utm_source=generator&theme=0",
     "the shes gone": "https://open.spotify.com/embed/artist/689D5sYXTKmpBXqAkAu0H7?utm_source=generator&theme=0",
-    "秋山黄色": "https://open.spotify.com/embed/artist/0JROVv4P85ZVPFbaJIqAty?utm_source=generator&theme=0",
+    "秋山黄色": "https://open.spotify.com/embed/artist/0JROvV4P85ZVPFbaJIqAty?utm_source=generator&theme=0",
     "Ｔ字路s": "https://open.spotify.com/embed/artist/238nzReAbgGdev4POJB20t?utm_source=generator&theme=0",
     "Kvi Baba": "https://open.spotify.com/embed/artist/5VxQzcVrakID2E4UxaDPNs?utm_source=generator&theme=0",
     "TOOBOE": "https://open.spotify.com/embed/artist/0HZLpOSMHpalBlUnONhynN?utm_source=generator&theme=0",
@@ -861,7 +861,6 @@ function adjustFontSize() {
             // --- 優先度1: ステージバッジを縮小する ---
             // もしステージバッジが存在し、かつ現在のフォントサイズが 4.5px より大きければ…
             if (stageBadge) {
-                // 今のフォントサイズを取得（'8px' のような文字列を数値に変換）
                 let currentBadgeSize = parseFloat(getComputedStyle(stageBadge).fontSize);
                 if (currentBadgeSize > 4.5) {
                     // フォントサイズを0.5px小さくする

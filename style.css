@@ -142,20 +142,34 @@ h1 { font-size: 16px; margin: 0 0 10px 0; }
     box-sizing: border-box; /* 他のヘッダーと幅の計算方法を合わせる */
 }
 
-/* ステージ名のバッジ */
+/* ==========================================
+   ステージ名のバッジ（★修正★ 高さ2行分＆中央揃え）
+   ========================================== */
 .stage-name {
+    /* 文字をきれいに見せるための基本設定 */
     font-weight: bold;
-    font-size: 14px; 
-    margin-bottom: 5px; 
+    font-size: 13px;
     color: #fff;
     background-color: var(--stage-color, #333); /* JSから渡された色を適用 */
-    padding: 4px; 
-    border-radius: 4px; 
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.5); 
-    display: block; 
+    padding: 4px;
+    border-radius: 4px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+
+    /* 【追加】縦横の中央揃えと最低高さを確保 */
+    display: flex;
+    align-items: center;      /* 上下中央 */
+    justify-content: center;  /* 左右中央 */
+    min-height: 3.5em;        /* 2行分の高さ（line-height:1.2×2）を保証 */
+    box-sizing: border-box;   /* paddingを含めた高さ計算にする */
+    /* 下マージンは不要になるので削除（元々あった margin-bottom:5px は除去） */
 }
 
-.stage-name.mytt { color: #333; text-shadow: none; background: #bbb; }
+/* マイタイムテーブル専用のスタイル上書き */
+.stage-name.mytt {
+    color: #333;
+    text-shadow: none;
+    background: #bbb;
+}
 
 /* ==========================================
    タイムテーブル部分（本体のグリッド）
