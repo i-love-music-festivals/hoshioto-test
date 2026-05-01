@@ -4,11 +4,11 @@
  * Service Worker（オフライン機能）はブラウザの裏側で動く特殊な仕組みのため、
  * script.js の APP_CONFIG の設定を直接読み取ることができません。
  * そのため、別のフェスに流用する場合は、必ずここの CACHE_PREFIX の
- * 文字列（'hoshioto_2026_' の部分）を手動で書き換えてください。
+ * 文字列（'arabaki_2026_' の部分）を手動で書き換えてください。
  * ==========================================
  */
-const CACHE_PREFIX = 'hoshioto_2026_'; 
-const CACHE_VERSION = 'v1';
+const CACHE_PREFIX = 'arabaki_2026_'; 
+const CACHE_VERSION = 'v8';
 const CACHE_NAME = CACHE_PREFIX + 'cache-' + CACHE_VERSION;
 
 // インストール時に、古いService Workerを待たずにすぐ新しいものをアクティブにする
