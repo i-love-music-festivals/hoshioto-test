@@ -20,6 +20,8 @@
     --time-width: 40px;
     --col-width: 120px;
     --px-per-min: 2; /* 1分あたり何ピクセルにするか */
+
+    --mytt-col-width: 105px;  /* ← ここでマイタイムテーブルの幅を指定 */
 }
 
 /* ==========================================
@@ -136,8 +138,8 @@ h1 { font-size: 16px; margin: 0 0 10px 0; }
 
 /* マイタイムテーブルのカラムは、JSから渡された変数を使って幅を変動させます */
 .stage-header.mytt { 
-    width: calc(var(--col-width) * var(--mytt-cols, 1)); 
-    min-width: var(--col-width); 
+    width: calc(var(--mytt-col-width) * var(--mytt-cols, 1)); 
+    min-width: var(--mytt-col-width); 
     background: #ddd;
     box-sizing: border-box; /* 他のヘッダーと幅の計算方法を合わせる */
 }
@@ -238,7 +240,10 @@ h1 { font-size: 16px; margin: 0 0 10px 0; }
     position: relative; 
     box-sizing: border-box; /* ヘッダーと幅を合わせる */
 }
-.grid-col.mytt { background-color: rgba(238, 238, 238, 0.9); }
+.grid-col.mytt {
+    background-color: rgba(238, 238, 238, 0.9);
+    width: var(--mytt-col-width);
+}
 
 /* 背景の横線（1時間ごとの目盛り）を描画します */
 .grid-bg-lines {
