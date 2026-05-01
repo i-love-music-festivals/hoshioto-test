@@ -83,6 +83,7 @@ function getFavId(dayKey, stageId, artistName) {
 // ==========================================
 // --- 4. フードデータ一覧 ---
 const foodList = [
+    // ※今回は変更がないため省略せずにそのまま残します
     {
         name: "hoshiotoオフィシャルショップ",
         menu: [
@@ -166,7 +167,6 @@ const timetableData = {
             e("パフォーマンス：ぼくらのスマイルキッズプロジェクト / 大道芸人S4 / 伝承パフォーマー ぢゃあ（けん玉）", "09:30", "20:00", "Performance", { hideEndTime: true, isLightBg: true })
         ],
         sky: [
-            // ★修正点：10分間という短い枠のため、名前を優先して表示する hideTime: true を付与しました
             e("大舌勲（井原市長）開催宣言", "09:30", "09:40", "", { isLightBg: true, hideTime: true }),
             e("ターコイズ（オーディショングランプリ）", "09:40", "10:10", "Rock"),
             e("SCOOBIE DO", "10:50", "11:40", "Funk/Rock"),
@@ -192,11 +192,12 @@ const timetableData = {
             e("おとなりアイニー（オーディション特別賞）", "19:35", "20:05", "Rock")
         ],
         rest: [
-            e("ビア怪談1<br><span class='guest-item'>●恐怖新聞健太郎<br>●ノンストップくそ＆シガー<br>●テルシ</span></span>", "12:30", "13:00", ""),
-            e("ビア怪談2<br><span class='guest-item'>●恐怖新聞健太郎<br>●ノンストップくそ＆シガー<br>●テルシ</span></span>", "13:30", "14:00", ""),
+            // ★修正点②：末尾の余分な </span> を削除し、エラーの原因を取り除きました
+            e("ビア怪談1<br><span class='guest-item'>●恐怖新聞健太郎<br>●ノンストップくそ＆シガー<br>●テルシ</span>", "12:30", "13:00", ""),
+            e("ビア怪談2<br><span class='guest-item'>●恐怖新聞健太郎<br>●ノンストップくそ＆シガー<br>●テルシ</span>", "13:30", "14:00", ""),
             e("hoshioto TALK SESSION（永井純一 × 藤井裕士）", "14:30", "15:00", ""),
-            e("ビア怪談3<br><span class='guest-item'>●恐怖新聞健太郎<br>●ノンストップくそ＆シガー<br>●テルシ</span></span>", "16:50", "17:20", ""),
-            e("ビア怪談4<br><span class='guest-item'>●恐怖新聞健太郎<br>●ノンストップくそ＆シガー<br>●テルシ</span></span>", "18:05", "18:35", ""),
+            e("ビア怪談3<br><span class='guest-item'>●恐怖新聞健太郎<br>●ノンストップくそ＆シガー<br>●テルシ</span>", "16:50", "17:20", ""),
+            e("ビア怪談4<br><span class='guest-item'>●恐怖新聞健太郎<br>●ノンストップくそ＆シガー<br>●テルシ</span>", "18:05", "18:35", ""),
             e("hoshioto TALK SESSION / ササキユウタ（星空メッセンジャー）", "19:05", "19:35", "")
         ]
     }
@@ -304,7 +305,7 @@ const artistLinkDict = {
 
 // --- Spotifyリンク辞書 ---
 const artistSpotifyDict = {
-    // ... (中略：既存の辞書データそのまま) ...
+    // ※省略なし
     "町長挨拶": "",
     "川崎中学校吹奏楽部": "",
     "ストレイテナー": "https://open.spotify.com/embed/artist/4q5fHrf0Q0R6imQ3etjXEG?utm_source=generator&theme=0",
@@ -411,13 +412,17 @@ const artistSpotifyDict = {
     "SHISHAMO": "https://open.spotify.com/embed/artist/6MGHit7sV38BhpChZYByFv?utm_source=generator&theme=0"
 };
 
-// 検索時の揺れを吸収するため、文字を平仮名や小文字に統一する関数です
+// ★修正点④：検索時の揺れを吸収するため、濁点や半濁点を削除し「ひ」に統一する処理を追加しました
 function normalizeForSearch(str) {
     if (!str) return "";
+    // 1. カタカナを平仮名に変換します
     let normalized = str.replace(/[\u30a1-\u30f6]/g, function(match) {
         return String.fromCharCode(match.charCodeAt(0) - 0x60);
     });
+    // 2. アルファベットを小文字に変換します
     normalized = normalized.toLowerCase();
+    // 3. 文字から濁点（゛）や半濁点（゜）を分解して取り除き、清音に統一します
+    normalized = normalized.normalize("NFD").replace(/[\u3099\u309A]/g, "").normalize("NFC");
     return normalized;
 }
 
@@ -448,22 +453,18 @@ const saveFavorites = () => localStorage.setItem(FAV_KEY, JSON.stringify(favorit
 const saveFoodFavorites = () => localStorage.setItem(FOOD_FAV_KEY, JSON.stringify(foodFavoritesOrder));
 
 // --- 現在時刻の計算ロジック ---
-// 指定した開催日の「開始時刻から現在何分経過しているか」を計算します
 function getCurrentMinsForDay(dayKey) {
     const now = new Date();
     const dataDate = new Date(timetableData[dayKey].date);
     const isToday = now.toDateString() === dataDate.toDateString();
     
-    // 深夜帯をフェスの「同日」として扱うため、カレンダー上の翌日を計算します
     const targetNextDay = new Date(dataDate);
     targetNextDay.setDate(targetNextDay.getDate() + 1); 
     const isNextDayEarly = now.getHours() < APP_CONFIG.startHour && now.toDateString() === targetNextDay.toDateString();
 
-    // もし今日がその開催日であれば、経過した分数を計算して返します
     if (isToday || isNextDayEarly) {
         return (now.getHours() + (isNextDayEarly ? 24 : 0) - APP_CONFIG.startHour) * 60 + now.getMinutes();
     }
-    // 開催日以外の場合は -1 を返します
     return -1; 
 }
 
@@ -725,14 +726,12 @@ function renderHeaders(myttCols) {
     document.getElementById('stageHeaders').innerHTML = html;
 }
 
-// ★修正点：1つのアーティストのブロック（四角い箱）のHTMLを作る関数です
+// 1つのアーティストのブロック（四角い箱）のHTMLを作る関数です
 function getArtistHtml(artist, stage, dayKey, isMyTT = false, currentMins = -1) {
-    // --- 1. 時間と高さの計算 ---
     const startMin = timeToMins(artist.start);
     const endMin = timeToMins(artist.end);
-    const duration = endMin - startMin; // ブロックの高さになります
+    const duration = endMin - startMin; 
 
-    // --- 2. お気に入り状態の確認 ---
     const favId = getFavId(dayKey, stage.id, artist.name);
     const isFav = favorites[favId];
     
@@ -741,21 +740,17 @@ function getArtistHtml(artist, stage, dayKey, isMyTT = false, currentMins = -1) 
         isPlaying = true;
     }
 
-    // --- 3. クラス名の付与（見た目の切り替えスイッチ） ---
-    // artist.hideTime が true の場合、CSSに処理を任せるための 'is-time-hidden' クラスを追加します
     const classes = [
         'artist-block', 
         isFav && 'favorited', 
         isPlaying && 'playing', 
         artist.isLightBg && 'is-light-bg',
-        artist.hideTime && 'is-time-hidden' // ★ここが追加点：「時間を隠す」意味を持つクラス
+        artist.hideTime && 'is-time-hidden' 
     ].filter(Boolean).join(' ');
     
-    // --- 4. マイタイムテーブル用のステージ名バッジ（※配置変更禁止箇所） ---
     const stageBadgeHtml = isMyTT ? `<div class="mytt-stage-name">${stage.name}</div>` : '';
 
     if (artist.isSpecialLayout) {
-        // ※特殊レイアウト（isSpecialLayout）を使用するブロックの処理です
         const timeHtml = artist.hideTime ? '' : `<span class="artist-time">${artist.displayTime || formatTimeDisplay(artist.start) + '-'}</span>`;
         const inlineStageBadge = isMyTT ? `<span class="mytt-stage-name inline-badge">${stage.name}</span>` : '';
         return `
@@ -767,37 +762,22 @@ function getArtistHtml(artist, stage, dayKey, isMyTT = false, currentMins = -1) 
             </div>`;
     }
 
-    // --- 5. 時間表示のHTML骨組み生成 ---
     const timeText = artist.hideEndTime ? `${formatTimeDisplay(artist.start)}-` : `${formatTimeDisplay(artist.start)}-${formatTimeDisplay(artist.end)}`;
     
-    // JSロジック側：データに「hideTime: true」があれば時間を空っぽにし、なければ時間を表示するHTMLを作ります
     const timeHtml = artist.hideTime ? '' : `<span class="artist-time">${timeText}</span>`;
     
-    // --- 6. ジャンル表示のHTML骨組み生成 ---
     const displayGenre = (artist.hideEndTime || isMyTT) ? "" : (artist.genre || "");
     const metaHtml = displayGenre ? `<div class="artist-meta">${displayGenre}</div>` : '';
     
-    // --- 7. 最終的なHTMLの組み立て ---
-    // HTML側：骨組みとクラス名だけに徹し、レイアウトは全てCSSに任せます
     return `
-    <!-- 1つのアーティストのブロック（箱） -->
     <div class="${classes}" style="--start-min: ${startMin}; --duration: ${duration}; --artist-bg: ${stage.color};">
-        
-        <!-- 1. マイタイムテーブル用のステージ名（絶対一番上に固定） -->
         ${stageBadgeHtml}
-        
-        <!-- 2. トップ部分（時間と★ボタンの枠） -->
         <div class="artist-top">
-            ${timeHtml} <!-- ★時間を隠す指示があればここは空になります -->
+            ${timeHtml}
             <button class="fav-btn ${isFav ? 'active' : ''}" data-fav-id="${favId}">★</button>
         </div>
-        
-        <!-- 3. アーティスト名の枠 -->
         <div class="artist-name">${artist.name}</div>
-        
-        <!-- 4. その他の情報（ジャンルなど）の枠 -->
         ${metaHtml}
-        
     </div>`;
 }
 
@@ -1351,7 +1331,12 @@ function showSearchResults(searchText) {
                 }
             }
 
-            const classes = ['artist-block', isFav ? 'favorited' : '', artist.isLightBg ? 'is-light-bg' : ''].filter(Boolean).join(' ');
+            // ★修正点③：アーティストの名前に「ビア怪談」が含まれていたら、文字を小さくする意味を持たせるクラスを追加
+            const isBiaKaidan = artist.name.includes("ビア怪談");
+            const compactClass = isBiaKaidan ? 'is-compact-text' : '';
+
+            // CSSにデザインを任せるためのクラスのリストです
+            const classes = ['artist-block', isFav ? 'favorited' : '', artist.isLightBg ? 'is-light-bg' : '', compactClass].filter(Boolean).join(' ');
 
             const html = `
                 <div class="${classes}" style="--artist-bg: ${stage.color};">
@@ -1402,22 +1387,5 @@ window.addEventListener('DOMContentLoaded', () => {
         memoTextArea.addEventListener('input', () => {
             localStorage.setItem(MEMO_KEY, memoTextArea.value);
         });
-    }
-
-    const weatherIframe = document.querySelector('#weatherOnlineContent iframe');
-    if (weatherIframe) {
-        weatherIframe.addEventListener('load', () => {
-            const weatherSection = document.getElementById('weatherSection');
-            if (weatherSection && weatherSection.classList.contains('active')) {
-                setTimeout(() => {
-                    weatherSection.scrollTop = 0;
-                }, 100);
-            }
-        });
-    }
-    
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('./sw.js')
-            .catch(err => console.error('SW登録失敗:', err));
     }
 });
