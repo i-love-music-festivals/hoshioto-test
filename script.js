@@ -1,8 +1,8 @@
 /**
  * ==========================================
  * 【設定・データエリア】
- * 今後、別のフェスや別年度に流用する場合は、
- * HTMLやCSSを一切触らず、この APP_CONFIG とデータだけを書き換えてください。
+ * JS（データ側） = ここではデータを定義するだけで、画面の描画は行いません。
+ * 今後、別のフェスに流用する場合は、ここだけ書き換えてください。
  * ==========================================
  */
 
@@ -70,6 +70,7 @@ const stagesInfo = [
 ];
 
 // --- 3. データ作成用ヘルパー関数 ---
+// タイムテーブルのデータを短く書くための関数（e = event）
 const e = (name, start, end, genre = "", options = {}) => ({ name, start, end, genre, ...options });
 
 function getFavId(dayKey, stageId, artistName) {
@@ -128,6 +129,8 @@ const foodList = [
 ];
 
 // --- 5. タイムテーブル・出演アーティストデータ ---
+// e("アーティスト名", "開始", "終了", "ジャンル", { オプション }) 
+// オプション例: { hideEndTime: true } で終了時間を隠す
 const timetableData = {
     day1: {
         date: "2026-05-23",
@@ -197,7 +200,7 @@ const timetableData = {
     }
 };
 
-// --- 検索用：読み仮名辞書（タイムテーブル出現アーティストのみ） ---
+// --- 検索用：読み仮名辞書 ---
 const artistYomiDict = {
     "DawnLuLu（オーディション特別賞）": "どーんるる",
     "真舟とわ": "まふねとわ",
@@ -245,7 +248,7 @@ const artistYomiDict = {
     "hoshioto TALK SESSION / ササキユウタ（星空メッセンジャー）": "ほしおととーくせっしょん"
 };
 
-// --- 公式HPリンク辞書（タイムテーブル出現アーティストのみ） ---
+// --- 公式HPリンク辞書 ---
 const artistLinkDict = {
     "DawnLuLu（オーディション特別賞）": "https://dawnlulu.fanpla.jp/",
     "真舟とわ": "https://lit.link/mafunetowa",
@@ -293,7 +296,7 @@ const artistLinkDict = {
     "hoshioto TALK SESSION / ササキユウタ（星空メッセンジャー）": ""
 };
 
-// --- Spotifyリンク辞書（タイムテーブル出現アーティストのみ） ---
+// --- Spotifyリンク辞書 ---
 const artistSpotifyDict = {
     "さとう。": "https://open.spotify.com/embed/artist/42olGDHZaEPtRmxwEZPY31?utm_source=generator&theme=0",
     "SCOOBIE DO": "https://open.spotify.com/embed/artist/...（実際のURL）",
@@ -301,10 +304,16 @@ const artistSpotifyDict = {
     "TENDOUJI": "https://open.spotify.com/embed/artist/7kOS7xo3ryc1MmhfP0fNnX?utm_source=generator&theme=0",
     "ドミコ": "https://open.spotify.com/embed/artist/0CQuAKiUYqH0OK020E3miJ?utm_source=generator&theme=0",
     "石崎ひゅーい": "https://open.spotify.com/embed/artist/4NZJF1Qong0IAWBRE2EjTr?utm_source=generator&theme=0",
-    // ※ 他のアーティストについても適宜Spotify URLがあれば追加
 };
 
-// 以下、検索正規化関数やロジック部分は変更なし（既存のまま掲載）
+/**
+ * ==========================================
+ * 【システム・ロジックエリア】
+ * JS（ロジック側） = データに従って画面を作るだけの処理群です
+ * ==========================================
+ */
+
+// 検索用：カタカナや濁点などの表記ゆれを吸収する関数
 function normalizeForSearch(str) {
     if (!str) return "";
     let normalized = str.replace(/[\u30a1-\u30f6]/g, function(match) {
@@ -315,28 +324,24 @@ function normalizeForSearch(str) {
     return normalized;
 }
 
-/**
- * ==========================================
- * 【システム・ロジックエリア】
- * データの意味に従って画面を作るだけの処理群です
- * ==========================================
- */
-
 let currentDay = 1;
 let mapScale = 1.0;
 let fullArtistData = [];
 
+// ブラウザに保存するデータのキー（名前）
 const FAV_KEY = APP_CONFIG.storagePrefix + 'favs';
 const FOOD_FAV_KEY = APP_CONFIG.storagePrefix + 'food_favs';
 const LAST_TAB_KEY = APP_CONFIG.storagePrefix + 'last_tab';
 const MEMO_KEY = APP_CONFIG.storagePrefix + 'memo';
 
+// 保存されているデータを読み込む
 let favorites = JSON.parse(localStorage.getItem(FAV_KEY)) || {};
 let foodFavoritesOrder = JSON.parse(localStorage.getItem(FOOD_FAV_KEY)) || [];
 
 const saveFavorites = () => localStorage.setItem(FAV_KEY, JSON.stringify(favorites));
 const saveFoodFavorites = () => localStorage.setItem(FOOD_FAV_KEY, JSON.stringify(foodFavoritesOrder));
 
+// 現在時刻が設定された開始時間から何分経過しているか計算
 function getCurrentMinsForDay(dayKey) {
     const now = new Date();
     const dataDate = new Date(timetableData[dayKey].date);
@@ -352,6 +357,7 @@ function getCurrentMinsForDay(dayKey) {
     return -1; 
 }
 
+// 現在時刻の位置まで自動スクロールする
 function scrollToCurrentTime(dayKey) {
     const scrollArea = document.getElementById('ttScrollArea');
     if (!scrollArea) return; 
@@ -363,12 +369,13 @@ function scrollToCurrentTime(dayKey) {
         return;
     }
 
-    const targetMins = Math.max(0, currentMins - 60);
+    const targetMins = Math.max(0, currentMins - 60); // 1時間前を画面の上端に
     const rootStyles = getComputedStyle(document.documentElement);
     const pxPerMin = parseFloat(rootStyles.getPropertyValue('--px-per-min')) || 2;
     scrollArea.scrollTop = targetMins * pxPerMin;
 }
 
+// APP_CONFIGのデータを画面に反映させる
 function applyAppConfig() {
     const ui = APP_CONFIG.ui;
     
@@ -401,9 +408,9 @@ function applyAppConfig() {
     if(document.getElementById('btnZoomOut')) document.getElementById('btnZoomOut').textContent = ui.mapZoomOut;
     if(document.getElementById('btnZoomReset')) document.getElementById('btnZoomReset').textContent = ui.mapZoomReset;
 
+    // 日付タブの生成
     const tabContainer = document.getElementById('tabContainer');
     const firstStaticTab = document.getElementById('btnFood'); 
-    
     document.querySelectorAll('.day-tab-btn').forEach(el => el.remove());
 
     APP_CONFIG.days.forEach((day) => {
@@ -415,6 +422,7 @@ function applyAppConfig() {
         tabContainer.insertBefore(btn, firstStaticTab);
     });
 
+    // マップ画像の生成
     const mapWrapper = document.getElementById('mapWrapper');
     if (mapWrapper && APP_CONFIG.mapImages) {
         APP_CONFIG.mapImages.forEach(src => {
@@ -426,6 +434,7 @@ function applyAppConfig() {
         });
     }
 
+    // 天気の生成
     if(document.getElementById('weatherTitle')) document.getElementById('weatherTitle').textContent = APP_CONFIG.weather.areaName;
     const weatherContainer = document.getElementById('weatherIframeContainer');
     if (weatherContainer && APP_CONFIG.weather.iframeUrl) {
@@ -435,10 +444,12 @@ function applyAppConfig() {
         weatherContainer.appendChild(iframe);
     }
 
+    // 出典元の生成
     const sourceHtml = `${APP_CONFIG.source.text}<br>（<a href="${APP_CONFIG.source.url}" target="_blank" rel="noopener noreferrer" class="source-link">${APP_CONFIG.source.url}</a>）`;
     document.querySelectorAll('.source-credit').forEach(el => el.innerHTML = sourceHtml);
 }
 
+// クリックなどのイベントを設定する
 function setupEventListeners() {
     APP_CONFIG.days.forEach(day => {
         const btnId = 'btn' + day.id.charAt(0).toUpperCase() + day.id.slice(1);
@@ -455,6 +466,7 @@ function setupEventListeners() {
     document.getElementById('btnZoomOut').addEventListener('click', () => zoomMap(-0.2));
     document.getElementById('btnZoomReset').addEventListener('click', () => resetZoom());
 
+    // タイムテーブル内の★お気に入りボタン処理
     document.getElementById('gridContainer').addEventListener('click', (e) => {
         if (e.target.classList.contains('fav-btn')) {
             const favId = e.target.getAttribute('data-fav-id');
@@ -462,6 +474,7 @@ function setupEventListeners() {
         }
     });
 
+    // フードエリアの開閉と★お気に入り処理
     document.getElementById('foodContainer').addEventListener('click', (e) => {
         const toggleEl = e.target.closest('.food-area-toggle');
         if (toggleEl) {
@@ -474,6 +487,7 @@ function setupEventListeners() {
         }
     });
 
+    // 検索モーダル内のボタン処理
     document.getElementById('searchModalContent').addEventListener('click', (e) => {
         if (e.target.classList.contains('fav-btn')) {
             const favId = e.target.getAttribute('data-fav-id');
@@ -526,18 +540,21 @@ function toggleFoodArea(element) {
     if(content) content.classList.toggle('open');
 }
 
+// "10:30" などの文字列を、開始時間からの分数に変換する
 function timeToMins(timeStr) {
     const [h, m] = timeStr.split(':').map(Number);
     const adjustedH = h < APP_CONFIG.startHour ? h + 24 : h;
     return (adjustedH - APP_CONFIG.startHour) * 60 + m;
 }
 
+// 25:00 を 1:00 に直して表示する
 function formatTimeDisplay(timeStr) {
     let [h, m] = timeStr.split(':').map(Number);
     if(h >= 24) h -= 24; 
     return `${h}:${m.toString().padStart(2, '0')}`;
 }
 
+// タブの切り替え処理
 function switchTab(target) {
     document.querySelectorAll('.tab-btn, .content-section').forEach(el => el.classList.remove('active'));
 
@@ -575,6 +592,7 @@ function switchTab(target) {
     localStorage.setItem(LAST_TAB_KEY, target);
 }
 
+// 天気表示のためのオンラインチェック
 function checkWeatherOnlineStatus() {
     const weatherSection = document.getElementById('weatherSection');
     if (weatherSection) {
@@ -588,18 +606,21 @@ function checkWeatherOnlineStatus() {
 window.addEventListener('online', checkWeatherOnlineStatus);
 window.addEventListener('offline', checkWeatherOnlineStatus);
 
+// タイムテーブルのヘッダー（ステージ名）を描画する
 function renderHeaders(myttCols) {
     let html = ''; 
 
     if(myttCols > 0) {
-        html += `<div class="stage-header mytt" style="--mytt-cols: ${myttCols}; background-color: #fff; z-index: 20;">
+        // ※ 修正点：background-color や z-index などの見た目はCSSへ移動
+        html += `<div class="stage-header mytt" style="--mytt-cols: ${myttCols};">
                     <div class="stage-name mytt">マイタイテ</div>
                  </div>`;
     }
     
     stagesInfo.forEach(stage => {
+        // ステージカラーだけはデータ依存なのでCSS変数として渡す
         const style = `style="--stage-color: ${stage.color};"`;
-        html += `<div class="stage-header" style="background-color: #fff; z-index: 20;">
+        html += `<div class="stage-header">
                     <div class="stage-name" ${style}>${stage.name}</div>
                  </div>`;
     });
@@ -607,6 +628,7 @@ function renderHeaders(myttCols) {
     document.getElementById('stageHeaders').innerHTML = html;
 }
 
+// アーティスト1組分のHTMLブロックを生成する
 function getArtistHtml(artist, stage, dayKey, isMyTT = false, currentMins = -1) {
     const startMin = timeToMins(artist.start);
     const endMin = timeToMins(artist.end);
@@ -661,6 +683,7 @@ function getArtistHtml(artist, stage, dayKey, isMyTT = false, currentMins = -1) 
     </div>`;
 }
 
+// ブロックのサイズに合わせて文字を小さくする（レイアウト調整）
 function adjustFontSize() {
     document.querySelectorAll('.artist-block:not(.food-block):not(.search-modal-content .artist-block)').forEach(block => {
         const nameEl = block.querySelector('.artist-name'); 
@@ -714,11 +737,13 @@ function adjustFontSize() {
     });
 }
 
+// タイムテーブル全体を描画する
 function renderTimetable() {
     const dayKey = `day${currentDay}`;
     const data = timetableData[dayKey];
     if (!data) return; 
 
+    // 左側の時間軸を作る
     let timeHtml = '';
     for(let h = APP_CONFIG.startHour; h <= APP_CONFIG.endHour; h++) {
         timeHtml += `<div class="time-slot"><span>${h >= 24 ? h-24 : h}:00</span></div>`;
@@ -727,6 +752,7 @@ function renderTimetable() {
 
     const currentMins = getCurrentMinsForDay(dayKey);
 
+    // お気に入り（マイタイムテーブル）のデータを集める
     let myTtItems = [];
     stagesInfo.forEach((stage, stageIndex) => {
         (data[stage.id] || []).forEach(artist => {
@@ -744,6 +770,7 @@ function renderTimetable() {
         myTtItems.sort((a,b) => timeToMins(a.artist.start) - timeToMins(b.artist.start));
     }
 
+    // 時間が被っている場合は列を分ける処理
     let myTtColumns = []; 
     myTtItems.forEach(item => {
         let maxOverlapCol = -1;
@@ -774,17 +801,21 @@ function renderTimetable() {
     renderHeaders(myTtColCount); 
 
     let gridHtml = '';
+    
+    // マイタイムテーブルを描画
     if(myTtColCount > 0) {
         myTtColumns.forEach(col => {
             gridHtml += `<div class="grid-col mytt"><div class="grid-bg-lines"></div>${col.map(i => getArtistHtml(i.artist, i.stage, dayKey, true, currentMins)).join('')}</div>`;
         });
     }
 
+    // 全ステージのタイムテーブルを描画
     stagesInfo.forEach(stage => {
         const content = (data[stage.id] || []).map(a => getArtistHtml(a, stage, dayKey, false, currentMins)).join('');
         gridHtml += `<div class="grid-col"><div class="grid-bg-lines"></div>${content}</div>`;
     });
 
+    // 現在時刻の線を引く
     gridHtml += `<div class="current-time-line" id="currentTimeLine"></div>`;
     
     const gridContainer = document.getElementById('gridContainer');
@@ -814,6 +845,7 @@ function updateCurrentTimeLine() {
     line.classList.remove('is-visible'); 
 }
 
+// フード情報を描画する関数群
 function generateFoodCard(shop, areaName, isDraggable = false) {
     const menuItems = shop.menus.map(m => `<li>${m}</li>`).join('');
     const messageHtml = shop.message.replace(/\n/g, '<br>');
@@ -884,6 +916,7 @@ function renderFoodSection() {
     setupDragAndDrop(); 
 }
 
+// フードの並べ替え（ドラッグ＆ドロップ）処理
 function setupDragAndDrop() {
     const container = document.getElementById('foodFavoritesList');
     if (!container) return;
@@ -937,6 +970,7 @@ function updateFoodFavoritesOrder() {
     saveFoodFavorites();
 }
 
+// マップの拡大・縮小
 function zoomMap(delta) {
     mapScale = Math.min(Math.max(0.5, mapScale + delta), 3.0);
     document.getElementById('mapWrapper').style.setProperty('--map-scale', mapScale);
@@ -946,6 +980,7 @@ function resetZoom() {
     document.getElementById('mapWrapper').style.setProperty('--map-scale', mapScale);
 }
 
+// 時計の更新
 function updateClock() {
     const now = new Date();
     const h = String(now.getHours()).padStart(2, '0');
@@ -955,6 +990,7 @@ function updateClock() {
     if (clockElement) clockElement.textContent = `${h}:${m}:${s}`;
 }
 
+// 最終更新日時の表示
 function displayLastModified() {
     const lastMod = new Date(document.lastModified);
     const y = lastMod.getFullYear();
@@ -970,6 +1006,7 @@ function displayLastModified() {
 
 // ---------------- 検索機能系の処理 ----------------
 
+// 検索用のデータを作成する
 function buildArtistSearchData() {
     const baseNameMap = new Map(); 
     fullArtistData = [];
@@ -1093,6 +1130,7 @@ function formatDiffTime(mins) {
     }
 }
 
+// 検索結果内の「開始まであと○分」などを表示する
 function getArtistTimeStatusHtml(artist, dayDateStr) {
     if (!artist.start) return "";
     const now = new Date();
@@ -1199,9 +1237,10 @@ function showSearchResults(searchText) {
             if (index === item.artistsGroup.length - 1) {
                 const spotifyUrl = artistSpotifyDict[item.searchName] || "Spotify無し";
                 if (spotifyUrl !== "Spotify無し") {
+                    // ※ 修正点：非推奨の frameBorder="0" を削除しました。
                     spotifyHtml = `
                         <div class="spotify-embed-container">
-                            <iframe class="spotify-embed-iframe" src="${spotifyUrl}" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                            <iframe class="spotify-embed-iframe" src="${spotifyUrl}" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
                         </div>
                     `;
                 } else {
@@ -1243,11 +1282,13 @@ function showSearchResults(searchText) {
     document.getElementById('searchModal').classList.add('is-active');
 }
 
+// アプリが起動した時に動くメイン処理
 window.addEventListener('DOMContentLoaded', () => {
     applyAppConfig(); 
     setupEventListeners(); 
     setupSearch();
 
+    // 最後に開いていたタブを復元する
     const lastTab = localStorage.getItem(LAST_TAB_KEY) || (APP_CONFIG.days[0] ? APP_CONFIG.days[0].id : 'food');
     switchTab(lastTab); 
 
@@ -1258,6 +1299,7 @@ window.addEventListener('DOMContentLoaded', () => {
     setInterval(updateClock, 1000); 
     setInterval(updateCurrentTimeLine, 60000); 
 
+    // メモの保存・復元処理
     const memoTextArea = document.getElementById('memoTextArea');
     if (memoTextArea) {
         const savedMemo = localStorage.getItem(MEMO_KEY) || '';
