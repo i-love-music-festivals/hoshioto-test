@@ -13,7 +13,6 @@ const APP_CONFIG = {
     storagePrefix: "hoshioto_2026_", 
     startHour: 9, 
     endHour: 33,  // 深夜32:00（翌朝8:00）までカバーするため 
-    // ここの日数を3日や1日に変えると、自動的に画面のタブボタンも増減します
     days: [
         { id: 'day1', label: '5/23 (土)' }
     ],
@@ -71,10 +70,8 @@ const stagesInfo = [
 ];
 
 // --- 3. データ作成用ヘルパー関数 ---
-// タイムテーブルのデータを短く書くための補助関数です
 const e = (name, start, end, genre = "", options = {}) => ({ name, start, end, genre, ...options });
 
-// お気に入り保存用のIDを作る関数です
 function getFavId(dayKey, stageId, artistName) {
     const cleanName = artistName.replace(/<[^>]*>/g, '').replace(/[^a-zA-Z0-9ぁ-んァ-ヶー一-龠]/g, '');
     return `${dayKey}_${stageId}_${cleanName}`;
@@ -83,7 +80,6 @@ function getFavId(dayKey, stageId, artistName) {
 // ==========================================
 // --- 4. フードデータ一覧 ---
 const foodList = [
-    // ※今回は変更がないため省略せずにそのまま残します
     {
         name: "hoshiotoオフィシャルショップ",
         menu: [
@@ -192,7 +188,6 @@ const timetableData = {
             e("おとなりアイニー（オーディション特別賞）", "19:35", "20:05", "Rock")
         ],
         rest: [
-            // ★修正点②：末尾の余分な </span> を削除し、エラーの原因を取り除きました
             e("ビア怪談1<br><span class='guest-item'>●恐怖新聞健太郎<br>●ノンストップくそ＆シガー<br>●テルシ</span>", "12:30", "13:00", ""),
             e("ビア怪談2<br><span class='guest-item'>●恐怖新聞健太郎<br>●ノンストップくそ＆シガー<br>●テルシ</span>", "13:30", "14:00", ""),
             e("hoshioto TALK SESSION（永井純一 × 藤井裕士）", "14:30", "15:00", ""),
@@ -203,9 +198,8 @@ const timetableData = {
     }
 };
 
-// --- 検索用：読み仮名辞書 ---
+// --- 検索用：読み仮名辞書（タイムテーブル出現アーティストのみ） ---
 const artistYomiDict = {
-    // ... (中略：既存の辞書データそのまま) ...
     "DawnLuLu（オーディション特別賞）": "どーんるる",
     "真舟とわ": "まふねとわ",
     "さとう。": "さとう",
@@ -237,6 +231,7 @@ const artistYomiDict = {
     "ドミコ": "どみこ",
     "Homecomings": "ほーむかみんぐす",
     "星空メッセンジャー ササキユウタ presents 天体観測会": "ほしぞらめっせんじゃー",
+    "藤井裕士によるラジオ体操": "ふじいゆうし",
     "メリケンサック（LOCAL LIVEHOUSE act）": "めりけんさっく",
     "きのこ島（LOCAL LIVEHOUSE act）": "きのこじま",
     "laetrile（LOCAL LIVEHOUSE act）": "れーとりる",
@@ -247,15 +242,12 @@ const artistYomiDict = {
     "鈴木実貴子ズ": "すずきみきこず",
     "New Sprint（オーディション特別賞）": "にゅーすぷりんと",
     "おとなりアイニー（オーディション特別賞）": "おとなりあいにー",
-    "藤井裕士によるラジオ体操": "ふじいゆうし",
-    "ビア怪談": "びあかいだん",
     "hoshioto TALK SESSION（永井純一 × 藤井裕士）": "ほしおととーくせっしょん",
     "hoshioto TALK SESSION / ササキユウタ（星空メッセンジャー）": "ほしおととーくせっしょん"
 };
 
-// --- 公式HPリンク辞書 ---
+// --- 公式HPリンク辞書（タイムテーブル出現アーティストのみ） ---
 const artistLinkDict = {
-    // ... (中略：既存の辞書データそのまま) ...
     "DawnLuLu（オーディション特別賞）": "https://dawnlulu.fanpla.jp/",
     "真舟とわ": "https://lit.link/mafunetowa",
     "さとう。": "https://sato-darari.jp/",
@@ -287,6 +279,7 @@ const artistLinkDict = {
     "ドミコ": "https://www.domico-music.com/",
     "Homecomings": "https://homecomings.jp/",
     "星空メッセンジャー ササキユウタ presents 天体観測会": "",
+    "藤井裕士によるラジオ体操": "",
     "メリケンサック（LOCAL LIVEHOUSE act）": "",
     "きのこ島（LOCAL LIVEHOUSE act）": "",
     "laetrile（LOCAL LIVEHOUSE act）": "",
@@ -297,131 +290,28 @@ const artistLinkDict = {
     "鈴木実貴子ズ": "https://mikikotomikikotomikiko.jimdofree.com/",
     "New Sprint（オーディション特別賞）": "https://newsprint.ryzm.jp/",
     "おとなりアイニー（オーディション特別賞）": "https://fanlink.tv/otonari-ainy",
-    "藤井裕士によるラジオ体操": "",
-    "ビア怪談": "",
     "hoshioto TALK SESSION（永井純一 × 藤井裕士）": "",
     "hoshioto TALK SESSION / ササキユウタ（星空メッセンジャー）": ""
 };
 
-// --- Spotifyリンク辞書 ---
+// --- Spotifyリンク辞書（タイムテーブル出現アーティストのみ） ---
 const artistSpotifyDict = {
-    // ※省略なし
-    "町長挨拶": "",
-    "川崎中学校吹奏楽部": "",
-    "ストレイテナー": "https://open.spotify.com/embed/artist/4q5fHrf0Q0R6imQ3etjXEG?utm_source=generator&theme=0",
-    "マキシマム ザ ホルモン": "",
-    "ELLEGARDEN": "https://open.spotify.com/embed/artist/3cbd5GWGOknxmFAe77MDbk?utm_source=generator&theme=0",
-    "東京スカパラダイスオーケストラ": "https://open.spotify.com/embed/artist/0UZq6vAHrwGgctvxTzzxYm?utm_source=generator&theme=0",
-    "[Alexandros]": "https://open.spotify.com/embed/artist/1luOe8HkZQ7zwuaO2wuJqI?utm_source=generator&theme=0",
-    "ASIAN KUNG-FU GENERATION": "https://open.spotify.com/embed/artist/0MK8l3nURwwQIjafvXoJJt?utm_source=generator&theme=0",
-    "Ayllton": "https://open.spotify.com/embed/artist/6pZ4Cwi0ZENOIima6QgoGH?utm_source=generator&theme=0",
-    "森川葵咲樹": "https://open.spotify.com/embed/artist/1HjC4EPQJYZ28HQFXoom5Z?utm_source=generator&theme=0",
-    "TRAëLL": "https://open.spotify.com/embed/artist/3lWgBNRSqCdpLrfPjflB1h?utm_source=generator&theme=0",
-    "PES": "https://open.spotify.com/embed/artist/7LjwJY093gH5dJHUSidPih?utm_source=generator&theme=0",
-    "UNFAIR RULE (Acoustic Set)": "https://open.spotify.com/embed/artist/4wQwkCWhOP1FKZgE87n00W?utm_source=generator&theme=0",
     "さとう。": "https://open.spotify.com/embed/artist/42olGDHZaEPtRmxwEZPY31?utm_source=generator&theme=0",
-    "関取花": "https://open.spotify.com/embed/artist/68AgFdMHxeVZ8cUX31HlCq?utm_source=generator&theme=0",
-    "鈴木実貴子ズ": "https://open.spotify.com/embed/artist/68EAsONs8fA8C8e3I4qcV0?utm_source=generator&theme=0",
-    "奇妙礼太郎": "https://open.spotify.com/embed/artist/56GlPMUHPnbBDYMMbgLHN4?utm_source=generator&theme=0",
-    "GLIM SPANKY": "https://open.spotify.com/embed/artist/4sWyw0OrBKwmiaPOAuTuig?utm_source=generator&theme=0",
-    "藤原美幸(秋田民謡)": "",
-    "リアクション ザ ブッタ": "https://open.spotify.com/embed/artist/7HT7QBLHLQ16iL4W2xjkeX?utm_source=generator&theme=0",
+    "SCOOBIE DO": "https://open.spotify.com/embed/artist/...（実際のURL）",
+    "BRADIO": "https://open.spotify.com/embed/artist/...",
     "TENDOUJI": "https://open.spotify.com/embed/artist/7kOS7xo3ryc1MmhfP0fNnX?utm_source=generator&theme=0",
-    "みちのくプロレス": "",
     "ドミコ": "https://open.spotify.com/embed/artist/0CQuAKiUYqH0OK020E3miJ?utm_source=generator&theme=0",
-    "LOW IQ 01 & THE RHYTHM MAKERS": "https://open.spotify.com/embed/artist/03iXYfVe4ZvZ0Q0dfLxzKc?utm_source=generator&theme=0",
-    "9mm Parabellum Bullet": "https://open.spotify.com/embed/artist/3v0nHmnUcf9GAhjQOTctQu?utm_source=generator&theme=0",
-    "西馬音内盆踊り": "",
-    "Crystal Lake": "https://open.spotify.com/embed/artist/0A7d0PJxaLO7CGI94ht6PX?utm_source=generator&theme=0",
-    "KOTORI": "https://open.spotify.com/embed/artist/6NlY4hC3DxmaCG2rSZv0fL?utm_source=generator&theme=0",
-    "打首獄門同好会": "https://open.spotify.com/embed/artist/3EJLTLWBKED6IQdsGgOscG?utm_source=generator&theme=0",
-    "coldrain": "https://open.spotify.com/embed/artist/4pCVGaLWxDe4d8bsjsnmUM?utm_source=generator&theme=0",
-    "Cha'R": "https://open.spotify.com/embed/artist/1akH9STN7guONF784ACv0W?utm_source=generator&theme=0",
-    "超能力戦士ドリアン": "https://open.spotify.com/embed/artist/3jhgvdTpY4XjgoH3REIwbt?utm_source=generator&theme=0",
-    "おいしくるメロンパン": "https://open.spotify.com/embed/artist/7v7AOgHT3xwF4Z86hcCbsh?utm_source=generator&theme=0",
-    "NELKE": "https://open.spotify.com/embed/artist/0hLfZOfwBDMejvKITJksrG?utm_source=generator&theme=0",
-    "kurayamisaka": "https://open.spotify.com/embed/artist/5kJvtFkFAXSgbz05ZZ4mVL?utm_source=generator&theme=0",
-    "のん & the tears of knight": "https://open.spotify.com/embed/artist/4YRx01IyUq6BreGGtNHQQk?utm_source=generator&theme=0",
-    "岸谷香": "https://open.spotify.com/embed/artist/5NAceZ4EkRueKHIUtgIde9?utm_source=generator&theme=0",
-    "夢弦会(津軽三味線)": "",
-    "リーガルリリー": "https://open.spotify.com/embed/artist/75eQ7NabzgaaUYcrqSY0FK?utm_source=generator&theme=0",
-    "柴田聡子 (BAND SET)": "https://open.spotify.com/embed/artist/4RaaBbyl7DzAmfkjGiyUGU?utm_source=generator&theme=0",
-    "コレサワ": "https://open.spotify.com/embed/artist/6sX1XKgDIiAcVZof0SgWUe?utm_source=generator&theme=0",
-    "Rol3ert": "https://open.spotify.com/embed/artist/3fJfvyieATQfDE47J42H2E?utm_source=generator&theme=0",
-    "猪居亜美(クラシックギター)": "https://open.spotify.com/embed/artist/0rcWfKZ3DLC4N9Zkh9Uscd?utm_source=generator&theme=0",
-    "奈良美智 (DJ)": "",
-    "Date fm (各種)": "",
-    "yosugala": "https://open.spotify.com/embed/artist/1Wo7GAbqe7gsicTckUS8u4?utm_source=generator&theme=0",
-    "もっさ(ネクライトーキー)": "https://open.spotify.com/embed/artist/45ew0KWgCA7evVgCydrZws?utm_source=generator&theme=0",
-    "ヒグチアイ (for CAMPERS)": "https://open.spotify.com/embed/artist/4GxWcui9BlMJH9VOOK5wav?utm_source=generator&theme=0",
-    "いいちこ presents ENKAI": "",
-    "杉本ラララ": "https://open.spotify.com/embed/artist/3MZwzBtJ4Zkl1TZVBYLAYK?utm_source=generator&theme=0",
-    "MONKEY MAJIK": "https://open.spotify.com/embed/artist/6U2dgcU46Iy9pF3RQBj5hG?utm_source=generator&theme=0",
-    "礼賛": "https://open.spotify.com/embed/artist/6s47v81SP75AAu01joweqx?utm_source=generator&theme=0",
-    "ハンブレッダーズ": "https://open.spotify.com/embed/artist/32k7rSC70F3C7qif9Pgavi?utm_source=generator&theme=0",
-    "くるり": "https://open.spotify.com/embed/artist/26WuprsX7JRG69T0PXkze4?utm_source=generator&theme=0",
-    "OAU": "https://open.spotify.com/embed/artist/2S6PiNmAaVVGO0YePSN3FB?utm_source=generator&theme=0",
-    "優里": "https://open.spotify.com/embed/artist/0ixzjrK1wkN2zWBXt3VW3W?utm_source=generator&theme=0",
-    "STUTS": "https://open.spotify.com/embed/artist/0qC4CNzOUtgdmdVzRqCa1d?utm_source=generator&theme=0",
-    "Lexulty": "https://open.spotify.com/embed/artist/5BLyLo2LQJduNgr39QgH4n?utm_source=generator&theme=0",
-    "怒髪天": "https://open.spotify.com/embed/artist/2UUHBIbp6MHWflVwNbPUOE?utm_source=generator&theme=0",
-    "MONGOL800": "https://open.spotify.com/embed/artist/2zUQjYvy0TevSi4d3PjqQO?utm_source=generator&theme=0",
-    "10-FEET": "https://open.spotify.com/embed/artist/0QZqdhoRQkn1VphAa5eX8h?utm_source=generator&theme=0",
-    "布袋寅泰": "https://open.spotify.com/embed/artist/4cShXyYZpvnVZYeE3Oukns?utm_source=generator&theme=0",
-    "あいみょん": "https://open.spotify.com/embed/artist/5kVZa4lFUmAQlBogl1fkd6?utm_source=generator&theme=0",
-    "MICHINOKU PEACE SESSION": "",
-    "中村旭": "",
-    "サカグチアミ": "https://open.spotify.com/embed/artist/4aJOCsyxr9bOooJDwmXUwX?utm_source=generator&theme=0",
-    "『ユイカ』": "https://open.spotify.com/embed/artist/2EqaSEa0WkE59Aca9iXSYj?utm_source=generator&theme=0",
     "石崎ひゅーい": "https://open.spotify.com/embed/artist/4NZJF1Qong0IAWBRE2EjTr?utm_source=generator&theme=0",
-    "サバシスター (Acoustic Set)": "https://open.spotify.com/embed/artist/59SCS5djYwMbZv80XDI0pj?utm_source=generator&theme=0",
-    "山中さわお(弾き語り)": "https://open.spotify.com/embed/artist/4X0lski0KnPuIyJJQSRhtF?utm_source=generator&theme=0",
-    "中田裕二(弾り語り)": "https://open.spotify.com/embed/artist/7Kbz6xbASLAYT072Z3ZRCS?utm_source=generator&theme=0",
-    "堂島孝平": "https://open.spotify.com/embed/artist/4xIGdXa6w9eWUoVnEsZNJ9?utm_source=generator&theme=0",
-    "曽我部恵一(弾き語り)": "https://open.spotify.com/embed/artist/5L2Y03AcUOXCgvRMTy2Gwq?utm_source=generator&theme=0",
-    "曽我部恵一 (DJ)": "https://open.spotify.com/embed/artist/5L2Y03AcUOXCgvRMTy2Gwq?utm_source=generator&theme=0",
-    "向井秀徳アコースティック＆エレクトリック": "https://open.spotify.com/embed/artist/0mMIcbj5qY7KPxltUMZnmz?utm_source=generator&theme=0",
-    "Luiz Murá (for CAMPERS)": "https://open.spotify.com/embed/artist/5RlK0YqgWYpYSkLLNR9O6g?utm_source=generator&theme=0",
-    "おとどけチーたくん高速バンド": "",
-    "EMNW": "https://open.spotify.com/embed/artist/0TwqpQOStb1pMXxlGWFYxZ?utm_source=generator&theme=0",
-    "忘れらんねえよ柴田": "https://open.spotify.com/embed/artist/7mhywHwc3ElwYwiMLEsduP?utm_source=generator&theme=0",
-    "Blue Mash": "https://open.spotify.com/embed/artist/1qG4m6PAWqUuJ2b3Ahfr07?utm_source=generator&theme=0",
-    "BURNOUT SYNDROMES": "https://open.spotify.com/embed/artist/0Oazwl71qoHvXnbSxv0wOT?utm_source=generator&theme=0",
-    "MAYSON's PARTY": "https://open.spotify.com/embed/artist/3RHFm0m7Ni1vl2Lr5sLw5t?utm_source=generator&theme=0",
-    "yonige": "https://open.spotify.com/embed/artist/6uovEmc6Z1C1aUvvdKACXQ?utm_source=generator&theme=0",
-    "PEDRO": "https://open.spotify.com/embed/artist/3lIKnWNb3Z1Q71eZszY3p0?utm_source=generator&theme=0",
-    "THE BACK HORN": "https://open.spotify.com/embed/artist/34d8V2nUwp937CmL9pQ6xV?utm_source=generator&theme=0",
-    "eastern youth": "https://open.spotify.com/embed/artist/5Y2k6C2UgQVRd3zzsx1CcH?utm_source=generator&theme=0",
-    "LOSTAGE": "",
-    "黒夢": "https://open.spotify.com/embed/artist/2286E4ur6XjwJuWjaHMJkz?utm_source=generator&theme=0",
-    "坂本サトル ARABAKI special": "https://open.spotify.com/embed/artist/75AF7cfhi0GLa1HJXgspn8?utm_source=generator&theme=0",
-    "luv": "https://open.spotify.com/embed/artist/2Gy7SZvabW5UQgL0oljfeB?utm_source=generator&theme=0",
-    "the shes gone": "https://open.spotify.com/embed/artist/689D5sYXTKmpBXqAkAu0H7?utm_source=generator&theme=0",
-    "秋山黄色": "https://open.spotify.com/embed/artist/0JROvV4P85ZVPFbaJIqAty?utm_source=generator&theme=0",
-    "Ｔ字路s": "https://open.spotify.com/embed/artist/238nzReAbgGdev4POJB20t?utm_source=generator&theme=0",
-    "Kvi Baba": "https://open.spotify.com/embed/artist/5VxQzcVrakID2E4UxaDPNs?utm_source=generator&theme=0",
-    "TOOBOE": "https://open.spotify.com/embed/artist/0HZLpOSMHpalBlUnONhynN?utm_source=generator&theme=0",
-    "浅井健一": "https://open.spotify.com/embed/artist/5Gm55pqgmqzj8QbaHQTCFd?utm_source=generator&theme=0",
-    "レトロリロン": "https://open.spotify.com/embed/artist/47MRpWYlFaneZAlaXrt9bu?utm_source=generator&theme=0",
-    "川内太鼓": "",
-    "GEZAN": "https://open.spotify.com/embed/artist/0bMxJbKiRQm2oaozKgoZo6?utm_source=generator&theme=0",
-    "ハンバート ハンバート": "https://open.spotify.com/embed/artist/5RI6QZwb39XNUV2vZv2aQY?utm_source=generator&theme=0",
-    "KEIJU": "https://open.spotify.com/embed/artist/7K3bqkZs0SVUS9K13bnwHL?utm_source=generator&theme=0",
-    "T.M.Revolution": "https://open.spotify.com/embed/artist/3jdzcmtw5XOmOkSb2mRDtr?utm_source=generator&theme=0",
-    "ゴスペラーズ": "https://open.spotify.com/embed/artist/4MRHdjH8xf7OH0utAw4air?utm_source=generator&theme=0",
-    "SHISHAMO": "https://open.spotify.com/embed/artist/6MGHit7sV38BhpChZYByFv?utm_source=generator&theme=0"
+    // ※ 他のアーティストについても適宜Spotify URLがあれば追加
 };
 
-// ★修正点④：検索時の揺れを吸収するため、濁点や半濁点を削除し「ひ」に統一する処理を追加しました
+// 以下、検索正規化関数やロジック部分は変更なし（既存のまま掲載）
 function normalizeForSearch(str) {
     if (!str) return "";
-    // 1. カタカナを平仮名に変換します
     let normalized = str.replace(/[\u30a1-\u30f6]/g, function(match) {
         return String.fromCharCode(match.charCodeAt(0) - 0x60);
     });
-    // 2. アルファベットを小文字に変換します
     normalized = normalized.toLowerCase();
-    // 3. 文字から濁点（゛）や半濁点（゜）を分解して取り除き、清音に統一します
     normalized = normalized.normalize("NFD").replace(/[\u3099\u309A]/g, "").normalize("NFC");
     return normalized;
 }
@@ -433,26 +323,21 @@ function normalizeForSearch(str) {
  * ==========================================
  */
 
-// --- 状態を管理する変数 ---
-let currentDay = 1; // 選択中のタブがDay1かDay2か等を覚えておきます
+let currentDay = 1;
 let mapScale = 1.0;
 let fullArtistData = [];
 
-// ブラウザにデータを保存するための「引き出しの名前（キー名）」です
 const FAV_KEY = APP_CONFIG.storagePrefix + 'favs';
 const FOOD_FAV_KEY = APP_CONFIG.storagePrefix + 'food_favs';
 const LAST_TAB_KEY = APP_CONFIG.storagePrefix + 'last_tab';
 const MEMO_KEY = APP_CONFIG.storagePrefix + 'memo';
 
-// 保存されているお気に入りデータを読み込みます
 let favorites = JSON.parse(localStorage.getItem(FAV_KEY)) || {};
 let foodFavoritesOrder = JSON.parse(localStorage.getItem(FOOD_FAV_KEY)) || [];
 
-// お気に入りデータをブラウザに保存する関数です
 const saveFavorites = () => localStorage.setItem(FAV_KEY, JSON.stringify(favorites));
 const saveFoodFavorites = () => localStorage.setItem(FOOD_FAV_KEY, JSON.stringify(foodFavoritesOrder));
 
-// --- 現在時刻の計算ロジック ---
 function getCurrentMinsForDay(dayKey) {
     const now = new Date();
     const dataDate = new Date(timetableData[dayKey].date);
@@ -468,7 +353,6 @@ function getCurrentMinsForDay(dayKey) {
     return -1; 
 }
 
-// --- 指定した日の現在時刻の1時間前に自動スクロールする関数 ---
 function scrollToCurrentTime(dayKey) {
     const scrollArea = document.getElementById('ttScrollArea');
     if (!scrollArea) return; 
@@ -486,7 +370,6 @@ function scrollToCurrentTime(dayKey) {
     scrollArea.scrollTop = targetMins * pxPerMin;
 }
 
-// --- HTMLの空箱に文字やデータを流し込む関数 ---
 function applyAppConfig() {
     const ui = APP_CONFIG.ui;
     
@@ -557,7 +440,6 @@ function applyAppConfig() {
     document.querySelectorAll('.source-credit').forEach(el => el.innerHTML = sourceHtml);
 }
 
-// --- 画面上のボタンにイベント（クリック時の動作）を一括で割り当てる関数 ---
 function setupEventListeners() {
     APP_CONFIG.days.forEach(day => {
         const btnId = 'btn' + day.id.charAt(0).toUpperCase() + day.id.slice(1);
@@ -726,7 +608,6 @@ function renderHeaders(myttCols) {
     document.getElementById('stageHeaders').innerHTML = html;
 }
 
-// 1つのアーティストのブロック（四角い箱）のHTMLを作る関数です
 function getArtistHtml(artist, stage, dayKey, isMyTT = false, currentMins = -1) {
     const startMin = timeToMins(artist.start);
     const endMin = timeToMins(artist.end);
@@ -1088,7 +969,7 @@ function displayLastModified() {
     }
 }
 
-// ---------------- 以下、検索機能系の処理 ----------------
+// ---------------- 検索機能系の処理 ----------------
 
 function buildArtistSearchData() {
     const baseNameMap = new Map(); 
@@ -1331,11 +1212,9 @@ function showSearchResults(searchText) {
                 }
             }
 
-            // ★修正点③：アーティストの名前に「ビア怪談」が含まれていたら、文字を小さくする意味を持たせるクラスを追加
             const isBiaKaidan = artist.name.includes("ビア怪談");
             const compactClass = isBiaKaidan ? 'is-compact-text' : '';
 
-            // CSSにデザインを任せるためのクラスのリストです
             const classes = ['artist-block', isFav ? 'favorited' : '', artist.isLightBg ? 'is-light-bg' : '', compactClass].filter(Boolean).join(' ');
 
             const html = `
