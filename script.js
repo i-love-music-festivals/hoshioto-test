@@ -87,14 +87,14 @@ const foodList = [
             { name: "②星音焙煎研究所", menus: ["オリジナル珈琲"], message: `hoshiotoのオフィシャルショップの珈琲屋。<br>hoshiotoイベントでしか飲めない珈琲と今年はチョコレートも販売予定！<br>珈琲は各方面で絶賛されています。<br>豆の販売もありますのでお土産にどうぞ！`, img: "https://i-love-music-festivals.github.io/hoshioto2026/official2.jpg" },
             { name: "③斎藤酒店", menus: ["アルコール", "ソフトドリンク"], message: `hoshiotoオフィシャルドリンク店！<br>ソフトドリンク多種あります！<br>入り口付近にあり、ステージにも近いので利用しやすいお店です。<br>※泥酔者には販売できませんのであしからず<br>節度持って飲みましょう！`, img: "https://i-love-music-festivals.github.io/hoshioto2026/official3.jpg" },
             { name: "④ワイン・クラフトビール販売", menus: ["ワイン", "クラフトビール"], message: "岡山県井原市美星町でニュージーランド産のオーガニックワインとクラフトビールを専門的に販売しています！", img: "https://i-love-music-festivals.github.io/hoshioto2026/official4.jpg" },
-            { name: "⑤近藤康平＆monaワークショップ", menus: ["アロマワークショップ"], message: `アロマワークショップ 厳選されたオーガニック精油の中から好きな香りを選んで自分だけの特別な香りを製作するワークショップです。<br>さらに完成したフレグランスボトルには近藤康平がひとつひとつペイントするスペシャルバージョンです！<br>アロマワークショップは、香りのブレンディングのコツをお伝えするので初めてでももちろん大丈夫です。<br>香水と言ってもオーガニック精油で作るので、普段、香水はつけない方や強い香りが苦手な方、自分だけの香りを作りたいけどどれを選んだらいいのかよくわからない方に、おすすめです。<br>ボトルはペンダントサイズなのでお気軽に身につけて持ち運ぶこともできます。<br>特別な香りを一緒に作りましょう！`, img: "https://i-love-music-festivals.github.io/hoshioto2026/official5.jpg" }
+            { name: "⑤近藤康平＆monaワークショップ", menus: ["アロマワークショップ"], message: `アロマワークショップ 厳選されたオーガニック精油の中から好きな香りを選んで自分だけの特別な香りを製作するワークショップです。<br>さらに完成したフレグランスボトルには近藤康平がひとつひとつペイントするスペシャルバージョンです！<br>アロマワークショップは、香りのブレンディングのコツをお伝えするので初めてでももちろん大丈夫です。`, img: "https://i-love-music-festivals.github.io/hoshioto2026/official5.jpg" }
         ]
     },
     {
         name: "飲食店",
         menu: [
             { name: "①葡萄浪漫館 食堂", menus: ["各種定食", "ソフトクリーム"], message: `会場の葡萄浪漫館の店内にある食堂。お手頃価格の定食やうどん・そば、そしてソフトクリームもあります！<br>​名物葡萄ソフトクリームはかなりオススメです！！`, img: "https://i-love-music-festivals.github.io/hoshioto2026/hood1.jpg" },
-            { name: "②秀よし屋", menus: ["焼き鳥"], message: `1回目から出店しているご存知「ふ〜ちゃん焼き」の秀よし屋。<br>新鮮な親鶏を使い　にんにく塩風味に味付けした噛めば噛むほど肉の濃い旨みが味わえる他にない焼き鳥　ふ～ちゃん焼。<br>この味、やみつきになるります！！<br>hoshiotoに来たらぜひ食べてみてください！<br>売り切れる可能性高いのでお早めに！`, img: "https://i-love-music-festivals.github.io/hoshioto2026/hood2.jpg" },
+            { name: "②秀よし屋", menus: ["焼き鳥"], message: `1回目から出店しているご存知「ふ〜ちゃん焼き」の秀よし屋。<br>新鮮な親鶏を使い　にんにく塩風味に味付けした噛めば噛むほど肉の濃い旨みが味わえる他にない焼き鳥　ふ～ちゃん焼。この味、やみつきになります！！<br>hoshiotoに来たらぜひ食べてみてください！<br>売り切れる可能性高いのでお早めに！`, img: "https://i-love-music-festivals.github.io/hoshioto2026/hood2.jpg" },
             { name: "③御食事処 星の郷", menus: ["美星バーガー"], message: `1回目から出店しているもはやhoshioto名物となっている地元井原市美星町の「美星バーガー」<br>地元食材をふんだんに使っているバーガーです！<br>​コレを食べないとhoshiotoに行った気がしないとまで言われてます！今年も是非！`, img: "https://i-love-music-festivals.github.io/hoshioto2026/hood3.jpg" },
             { name: "④2ndLife Dining Place", menus: ["ダイニングバー"], message: `カレーのルーやトッピングを燻製しています。<br>ローストビーフは厚切りの国産牛を使用しています。`, img: "https://i-love-music-festivals.github.io/hoshioto2026/hood4.jpg" },
             { name: "⑤36’s crepe", menus: ["クレープ"], message: `もちもち生地にたっぷりクリーム！20種類以上の多彩なクレープをお楽しみください。<br>毎年「大人限定！ラムレーズンチョコ生クリーム」が人気です。`, img: "https://i-love-music-festivals.github.io/hoshioto2026/hood5.jpg" },
@@ -104,7 +104,7 @@ const foodList = [
             { name: "⑨台湾飯", menus: ["台湾料理"], message: "台湾調味料を使用し台湾人から教わった料理を日本人向けに食べやすく少しアレンジ。子供から大人まで楽しめる中四国初の本格台湾料理キッチンカー。", img: "https://i-love-music-festivals.github.io/hoshioto2026/hood9.jpg" },
             { name: "⑩Halea～ハレア～", menus: ["バーガー", "スイーツ", "ドリンク"], message: `味・見た目ともに◎の”スライダーガーバー”が流行りのアサイーボウル等をメインにお子様が喜ぶくまボトルタピオカドリンクも！<br>”映え”と”流行”を意識した商品をお届けします！`, img: "https://i-love-music-festivals.github.io/hoshioto2026/hood10.jpg" },
             { name: "⑪酒場食堂BEN", menus: ["まぜそば"], message: "大阪南船場に2006年オープン。大阪からはるばる毎年出店させて頂いてます酒場食堂BENです。", img: "https://i-love-music-festivals.github.io/hoshioto2026/hood11.jpg" },
-            { name: "⑫無農薬玄米カレーコブカフェ", menus: ["無農薬玄米カレー"], message: `コブカフェでは、秋田県産の無農薬玄米を使用し、保存料や着色料を使わず、小麦粉は不使用でアレルギーの方でも安心。薬膳コーディネイターとスパイス香辛料アドバイザーの資格を持つ店主が独自にブレンドしたスパイスカレーはお子様でも安心。年間40万人が訪れる野外イベント、ロハスフェスタのグルメアワードを5回受賞し、キッチンカーグランプリでも一位を獲得した本当に美味しいカレーを是非どうぞ。`, img: "https://i-love-music-festivals.github.io/hoshioto2026/hood12.jpg" },
+            { name: "⑫無農薬玄米カレーコブカフェ", menus: ["無農薬玄米カレー"], message: `コブカフェでは、秋田県産の無農薬玄米を使用し、保存料や着色料を使わず、小麦粉は不使用でアレルギーの方でも安心。薬膳コーディネイターとスパイス香辛料アドバイザーの資格を持つ店主が独自にブレンドしたスパイスカレーはお子様でも安心。`, img: "https://i-love-music-festivals.github.io/hoshioto2026/hood12.jpg" },
             { name: "⑬craft kitchen", menus: ["ホルモンうどん"], message: "焼きたて、揚げたてのアツアツをご提供します。ぜひご賞味ください！", img: "https://i-love-music-festivals.github.io/hoshioto2026/hood13.jpg" },
             { name: "⑭ソニア", menus: ["お好み焼き"], message: "本場広島から岡山hoshiotoに再び参戦の毎度お馴染みの広島のお好み焼き「ソニア」です。本場ならではのスタンダードなお好み焼きに大葉(シソの葉)のアクセントが特徴のあっさりと食べれるお好み焼きは野外フェスの小腹満たしに一役買う存在です。", img: "https://i-love-music-festivals.github.io/hoshioto2026/hood14.jpg" },
             { name: "⑮明洞焼肉食堂", menus: ["韓国屋台飯"], message: `大阪コリアタウンにも卸している肉屋から仕入れた肉で作る韓国焼肉のサムギョプサルとビビンバのお店です。<br>ごきげんな音楽と満天の星空のお供にビビンバを是非！`, img: "https://i-love-music-festivals.github.io/hoshioto2026/hood15.jpg" },
