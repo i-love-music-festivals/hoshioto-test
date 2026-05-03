@@ -66,7 +66,7 @@ const stagesInfo = [
     { id: 'busker', name: 'BUSKER AREA', color: '#8E44AD' },
     { id: 'sky', name: 'SKY FIELD', color: '#2980B9' },
     { id: 'budou', name: '葡萄浪漫館 YOU SEE A-GO GO', color: '#8E44AD' },
-    { id: 'rest', name: '休憩処', color: '#5D6D7E' }
+    { id: 'rest', name: '休憩処', color: '#6C5B7B' }
 ];
 
 // --- 3. データ作成用ヘルパー関数 ---
