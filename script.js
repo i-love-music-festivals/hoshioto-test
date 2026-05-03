@@ -18,7 +18,7 @@ const APP_CONFIG = {
     ],
     mapImages: [
         "https://i-love-music-festivals.github.io/arabaki2026/arabaki26_areamap_ver02.jpg",
-        "https://i-love-music-festivals.github.io/arabaki2026/tentarea_26.jpg"
+        "https://i-love-music-festivals.github.io/hoshioto2026/bustimetable.jpg"
     ],
     weather: {
         areaName: "岡山県井原市青野町周辺の天気",
