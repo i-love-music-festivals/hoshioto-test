@@ -162,7 +162,7 @@ const timetableData = {
             e("TOMOVSKY", "19:20", "20:15", "Rock")
         ],
         busker: [
-            e("パフォーマンス：ぼくらのスマイルキッズプロジェクト / 大道芸人S4 / 伝承パフォーマー ぢゃあ（けん玉）", "09:30", "20:00", "Performance", { hideEndTime: true, isLightBg: true })
+            e("●ぼくらのスマイルキッズプロジェクト<br><br>●大道芸人S4<br><br>●伝承パフォーマー ぢゃあ（けん玉）<br><br>※パフォーマンス時間は当日の状況によります。", "11:00", "20:00", "Performance", { hideEndTime: true, isLightBg: true })
         ],
         sky: [
             e("大舌勲（井原市長）開催宣言", "09:30", "09:40", "", { isLightBg: true, hideTime: true }),
