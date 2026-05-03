@@ -66,7 +66,7 @@ const stagesInfo = [
     { id: 'busker', name: 'BUSKER AREA', color: '#8E44AD' },
     { id: 'sky', name: 'SKY FIELD', color: '#2980B9' },
     { id: 'budou', name: '葡萄浪漫館 YOU SEE A-GO GO', color: '#8E44AD' },
-    { id: 'rest', name: '休憩処', color: '#6C5B7B' }
+    { id: 'rest', name: '休憩処', color: '#5D6D7E' }
 ];
 
 // --- 3. データ作成用ヘルパー関数 ---
@@ -162,7 +162,7 @@ const timetableData = {
             e("TOMOVSKY", "19:20", "20:15", "Rock")
         ],
         busker: [
-            e("●ぼくらのスマイルキッズプロジェクト<br><br>●大道芸人S4<br><br>●伝承パフォーマー ぢゃあ（けん玉）<br><br>※パフォーマンス時間は当日の状況によります。", "11:00", "20:00", "Performance", { hideEndTime: true, isLightBg: true })
+            e("●ぼくらのスマイルキッズプロジェクト<br><br>●大道芸人S4<br><br>●伝承パフォーマー ぢゃぁ（けん玉）<br><br>※パフォーマンス時間は当日の状況によります。", "11:00", "20:00", "Performance", { hideEndTime: true, isLightBg: true })
         ],
         sky: [
             e("大舌勲（井原市長）開催宣言", "09:30", "09:40", "", { isLightBg: true, hideTime: true }),
