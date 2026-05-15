@@ -17,7 +17,7 @@ const APP_CONFIG = {
         { id: 'day1', label: '5/23 (土)' }
     ],
     mapImages: [
-        "https://i-love-music-festivals.github.io/arabaki2026/arabaki26_areamap_ver02.jpg",
+        "https://i-love-music-festivals.github.io/hoshioto2026/map.jpg",
         "https://i-love-music-festivals.github.io/hoshioto2026/bustimetable.jpg"
     ],
     weather: {
@@ -97,7 +97,7 @@ const foodList = [
             { name: "①葡萄浪漫館 食堂", menus: ["各種定食", "ソフトクリーム"], message: `会場の葡萄浪漫館の店内にある食堂。お手頃価格の定食やうどん・そば、そしてソフトクリームもあります！<br>​名物葡萄ソフトクリームはかなりオススメです！！`, img: "https://i-love-music-festivals.github.io/hoshioto2026/hood1.jpg" },
             { name: "②秀よし屋", menus: ["焼き鳥"], message: `1回目から出店しているご存知「ふ〜ちゃん焼き」の秀よし屋。<br>新鮮な親鶏を使い　にんにく塩風味に味付けした噛めば噛むほど肉の濃い旨みが味わえる他にない焼き鳥　ふ～ちゃん焼。この味、やみつきになります！！<br>hoshiotoに来たらぜひ食べてみてください！<br>売り切れる可能性高いのでお早めに！`, img: "https://i-love-music-festivals.github.io/hoshioto2026/hood2.jpg" },
             { name: "③御食事処 星の郷", menus: ["美星バーガー"], message: `1回目から出店しているもはやhoshioto名物となっている地元井原市美星町の「美星バーガー」<br>地元食材をふんだんに使っているバーガーです！<br>​コレを食べないとhoshiotoに行った気がしないとまで言われてます！今年も是非！`, img: "https://i-love-music-festivals.github.io/hoshioto2026/hood3.jpg" },
-            { name: "④2ndLife Dining Place", menus: ["ダイニングバー"], message: `カレーのルーやトッピングを燻製しています。<br>ローストビーフは厚切りの国産牛を使用しています。`, img: "https://i-love-music-festivals.github.io/hoshioto2026/hood4.jpg" },
+            { name: "④2ndLife Dining Place", menus: ["ダイニングバー"], message: `燻製したルーにトッピングの燻製を乗せており、他には無い味わいになっています！<br>シェフの作る本気イベント飯です！`, img: "https://i-love-music-festivals.github.io/hoshioto2026/hood4.jpg" },
             { name: "⑤36’s crepe", menus: ["クレープ"], message: `もちもち生地にたっぷりクリーム！20種類以上の多彩なクレープをお楽しみください。<br>毎年「大人限定！ラムレーズンチョコ生クリーム」が人気です。`, img: "https://i-love-music-festivals.github.io/hoshioto2026/hood5.jpg" },
             { name: "⑥E.mate", menus: ["タコス"], message: "福山市ひさまつ通りでダイニングバーをしています。タコスでイベント出店していて好評をいただいております！", img: "https://i-love-music-festivals.github.io/hoshioto2026/hood6.jpg" },
             { name: "⑦PASION", menus: ["タコス", "そばめし"], message: `美味しい手作りタコスとそばめし！<br>1回目からの皆勤出店！<br>目の前にて”焼きたて熱々”をお作りいたします。<br>焼きたて作り立てにこだわった料理をお楽しみください！`, img: "https://i-love-music-festivals.github.io/hoshioto2026/hood7.jpg" },
@@ -107,10 +107,9 @@ const foodList = [
             { name: "⑪酒場食堂BEN", menus: ["まぜそば"], message: "大阪南船場に2006年オープン。大阪からはるばる毎年出店させて頂いてます酒場食堂BENです。", img: "https://i-love-music-festivals.github.io/hoshioto2026/hood11.jpg" },
             { name: "⑫無農薬玄米カレーコブカフェ", menus: ["無農薬玄米カレー"], message: `コブカフェでは、秋田県産の無農薬玄米を使用し、保存料や着色料を使わず、小麦粉は不使用でアレルギーの方でも安心。薬膳コーディネイターとスパイス香辛料アドバイザーの資格を持つ店主が独自にブレンドしたスパイスカレーはお子様でも安心。`, img: "https://i-love-music-festivals.github.io/hoshioto2026/hood12.jpg" },
             { name: "⑬craft kitchen", menus: ["ホルモンうどん"], message: "焼きたて、揚げたてのアツアツをご提供します。ぜひご賞味ください！", img: "https://i-love-music-festivals.github.io/hoshioto2026/hood13.jpg" },
-            { name: "⑭ソニア", menus: ["お好み焼き"], message: "本場広島から岡山hoshiotoに再び参戦の毎度お馴染みの広島のお好み焼き「ソニア」です。本場ならではのスタンダードなお好み焼きに大葉(シソの葉)のアクセントが特徴のあっさりと食べれるお好み焼きは野外フェスの小腹満たしに一役買う存在です。", img: "https://i-love-music-festivals.github.io/hoshioto2026/hood14.jpg" },
-            { name: "⑮明洞焼肉食堂", menus: ["韓国屋台飯"], message: `大阪コリアタウンにも卸している肉屋から仕入れた肉で作る韓国焼肉のサムギョプサルとビビンバのお店です。<br>ごきげんな音楽と満天の星空のお供にビビンバを是非！`, img: "https://i-love-music-festivals.github.io/hoshioto2026/hood15.jpg" },
-            { name: "⑯岡本商店", menus: ["イカ焼き"], message: "イカ焼き、タン串、フランクフルトなど、鉄板焼きをメインに販売させていただきます。是非たべてみてください！", img: "https://i-love-music-festivals.github.io/hoshioto2026/hood16.jpg" },
-            { name: "⑰岡山足守 芋屋蜜三郎", menus: ["焼き芋"], message: `岡山・足守の歴史ある町並みに佇む「芋屋蜜三郎」当店は、素材の力を信じる焼き芋及び焼き芋スイーツ専門店です。「第2回全国焼き芋選手権」にて、【入賞】果たしたお芋の魅力を最大限に引き出す熟成・焼きの技術。全国が認めた至極の「幻の焼き芋」を使ったスイーツやトルティーヤをぜひご堪能ください。`, img: "https://i-love-music-festivals.github.io/hoshioto2026/hood17.jpg" }
+            { name: "⑭明洞焼肉食堂", menus: ["韓国屋台飯"], message: `大阪コリアタウンにも卸している肉屋から仕入れた肉で作る韓国焼肉のサムギョプサルとビビンバのお店です。<br>ごきげんな音楽と満天の星空のお供にビビンバを是非！`, img: "https://i-love-music-festivals.github.io/hoshioto2026/hood15.jpg" },
+            { name: "⑮岡本商店", menus: ["イカ焼き"], message: "イカ焼き、タン串、フランクフルトなど、鉄板焼きをメインに販売させていただきます。是非たべてみてください！", img: "https://i-love-music-festivals.github.io/hoshioto2026/hood16.jpg" },
+            { name: "⑯岡山足守 芋屋蜜三郎", menus: ["焼き芋"], message: `岡山・足守の歴史ある町並みに佇む「芋屋蜜三郎」当店は、素材の力を信じる焼き芋及び焼き芋スイーツ専門店です。「第2回全国焼き芋選手権」にて、【入賞】果たしたお芋の魅力を最大限に引き出す熟成・焼きの技術。全国が認めた至極の「幻の焼き芋」を使ったスイーツやトルティーヤをぜひご堪能ください。`, img: "https://i-love-music-festivals.github.io/hoshioto2026/hood17.jpg" }
         ]
     },
     {
